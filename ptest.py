@@ -1,12 +1,13 @@
 import bot_movement as bm
+import ultrasonic as u
 
 try:
-    bm.up()
-    print "turning left"
-    bm.turn_left()
-    print "turning right"
-    bm.turn_right()
-except KeyboardInterrupt:
+	if u.ultra < 20:
+		bm.turn_right()
+		bm.up()
+    else:
+    	bm.up()
+except:
     print "cleaning ptest.py"
 finally:
     print "done execution"

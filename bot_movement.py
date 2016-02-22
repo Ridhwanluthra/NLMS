@@ -31,14 +31,14 @@ try:
         ml.stop()
         mr.stop()
     def turn_left():
-        while d_move()[0] <= 20 and d_move()[1] <= 20:
+        while d_move()[0] <= 16 and d_move()[1] <= 16:
             ml.backward()
             mr.forward()
         sstop()
         refresh()
 
     def turn_right():
-        while d_move()[0] <= 20 and d_move()[1] <= 20:
+        while d_move()[0] <= 16 and d_move()[1] <= 16:
             ml.forward()
             mr.backward()
         sstop()
