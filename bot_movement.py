@@ -80,7 +80,7 @@ try:
             turn_left()
         elif (direction == 'w'):
             turn_right()
-        elif (drection == 's'):
+        elif (direction == 's'):
             turn_left()
 	    turn_left()
         direction = 'n'
@@ -94,7 +94,7 @@ try:
             turn_right()
         elif (direction == 'w'):
             turn_left()
-        elif (drection == 's'):
+        elif (direction == 's'):
             pass
         direction = 's'
 
@@ -107,7 +107,7 @@ try:
             turn_left()
         elif (direction == 'w'):
             pass
-        elif (drection == 's'):
+        elif (direction == 's'):
             turn_right()
         direction = 'w'
 
@@ -120,7 +120,7 @@ try:
         elif (direction == 'w'):
             turn_left()
             turn_left()
-        elif (drection == 's'):
+        elif (direction == 's'):
             turn_left()
         direction = 'e'
 except KeyboardInterrupt:

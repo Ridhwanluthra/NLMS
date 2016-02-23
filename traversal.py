@@ -65,21 +65,26 @@ which i can follow to get my bot to the final location
 
 def find_path(x, y):
 	global mapp
+	print mapp
 	rows = len(mapp)
         columns = len(mapp[0])
 	while (mapp[x][y] != 5):
 		if (x-1 >= 0 and mapp[x-1][y] == 3):					# LEFT
 			up()
 			x -= 1
+			mapp[x][y] = 0
 		elif (y+1 < columns and mapp[x][y+1] == 3):					# DOWN
 			right()
 			y += 1
+			mapp[x][y] = 0
 		elif (x+1 < rows and mapp[x+1][y] == 3):					# RIGHT
 			down()
 			x += 1
+			mapp[x][y] = 0
 		elif (y-1 >= 0 and mapp[x][y-1] == 3):					# UP
 			left()
 			y -= 1
+			mapp[x][y] = 0
 	else:
 		return "you have reached your destination" # put a different kind of result
 
@@ -102,7 +107,9 @@ def mapping(x, y, maps):
 	mapp=maps
 	rows = len(mapp)
         columns = len(mapp[0])
-	for i in range(rows):
+        look(x,y)
+	find_path(x,y)
+	"""for i in range(rows):
 		for j in range(columns):
 			if (mapp[i][j] == 1):
 				if (i-1 >= 0 and mapp[i-1][j] == 0):
@@ -143,3 +150,5 @@ def mapping(x, y, maps):
 					mapp[i][j-1] = 0
 				else:
 					print "there is some error"
+"""
+	

@@ -10,7 +10,7 @@ y=0
 # now i have the completed map of the room ready
 
 # add the ultrasonic sensors to find and save from obstacles.
-image_matrix = [[0,0,0,1,1,0],[0,0,1,0,0,0],[1,1,1,0,0,0],[1,0,0,0,1,1],[0,0,0,0,0,0]]
+image_matrix = [[0,0,0,0,1,0],[0,0,1,0,0,0],[1,1,1,0,0,0],[1,0,0,0,1,1],[0,0,0,0,0,0]]
 
 while True:
 	mapping(x, y, image_matrix)
