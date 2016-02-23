@@ -11,6 +11,7 @@ counter_right = 0
 c = 0
 a = 0
 def d_move():
+    gpio.setmode(gpio.BCM)
     while True:
         global a
         global c

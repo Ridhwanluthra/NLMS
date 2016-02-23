@@ -1,35 +1,36 @@
 import RPi.GPIO as GPIO
 import time
 
-GPIO.setmode(GPIO.BCM)
-
-trig = 20
-echo = 21
-
 print "Distance Measurement In Progress"
+def ultra():
+        try:
+                GPIO.setmode(GPIO.BCM)
 
-GPIO.setup(trig,GPIO.OUT)
-GPIO.setup(echo,GPIO.IN)
-GPIO.output(trig, False)
+                trig = 20
+                echo = 21
 
-try:
-	def ultra:
-		GPIO.output(trig, True)
-		time.sleep(0.00001)
-		GPIO.output(trig, False)
+                GPIO.setup(trig,GPIO.OUT)
+                GPIO.setup(echo,GPIO.IN)
+                GPIO.output(trig, False)
 
-		while GPIO.input(echo)==0:
-		  pulse_start = time.time()
+                time.sleep(2)
 
-		while GPIO.input(echo)==1:
-		  pulse_end = time.time()      
+                GPIO.output(trig, True)
+                time.sleep(0.00001)
+                GPIO.output(trig, False)
 
-		pulse_duration = pulse_end - pulse_start
-		distance = pulse_duration x 17150
-		distance = round(distance, 2)
+                while GPIO.input(echo)==0:
+                  pulse_start = time.time()
 
-		return distance
-except:
-	print "reading was interrupted"
-finally:
-	GPIO.cleanup()
+                while GPIO.input(echo)==1:
+                  pulse_end = time.time()      
+
+                pulse_duration = pulse_end - pulse_start
+                distance = pulse_duration*17150
+                distance = round(distance, 2)
+                return distance
+        except:
+                print "reading was interrupted"
+        finally:
+                GPIO.cleanup(trig)
+                GPIO.cleanup(echo)
