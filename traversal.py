@@ -8,7 +8,7 @@
 # take input of the start and the end point
 
 from bot_movement import *
-from click_picture import click_picture
+#from click_picture import click_picture
 
 """
 I get a matrix which has some 0's and 1's
@@ -33,8 +33,14 @@ from one location to the other in a matrix
 """
 This program gives the best path to move from source to destination.
 """
-def look(int x, int y):
-	if (!((x < rows and x >= 0) and (y < columns and y >= 0))):
+
+mapp=[[]]
+
+def look(x, y):
+	global mapp
+        rows = len(mapp)
+        columns = len(mapp[0])
+	if (not((x < rows and x >= 0) and (y < columns and y >= 0))):
 		return False
 	if (mapp[x][y]==5):
 		return True
@@ -57,20 +63,23 @@ Now I can create a matrix which has a path path of 3's
 which i can follow to get my bot to the final location
 """
 
-def find_path(int x, int y):
+def find_path(x, y):
+	global mapp
+	rows = len(mapp)
+        columns = len(mapp[0])
 	while (mapp[x][y] != 5):
 		if (x-1 >= 0 and mapp[x-1][y] == 3):					# LEFT
 			up()
-			x--
-		elif (y+1 <= columns and mapp[x][y+1] == 3):					# DOWN
+			x -= 1
+		elif (y+1 < columns and mapp[x][y+1] == 3):					# DOWN
 			right()
-			y++
-		elif (x+1 <= rows and mapp[x+1][y] == 3):					# RIGHT
+			y += 1
+		elif (x+1 < rows and mapp[x+1][y] == 3):					# RIGHT
 			down()
-			x++
+			x += 1
 		elif (y-1 >= 0 and mapp[x][y-1] == 3):					# UP
 			left()
-			y--
+			y -= 1
 	else:
 		return "you have reached your destination" # put a different kind of result
 
@@ -87,9 +96,14 @@ each location i have to go to 5 in turn so that
 i can go and take pictures of each obstacle
 """
 
-def mapping(x, y, mapp): # x and y being the current position of the bot
-	for i in rows:
-		for j in columns:
+# x and y being the current position of the bot
+def mapping(x, y, maps):
+	global mapp
+	mapp=maps
+	rows = len(mapp)
+        columns = len(mapp[0])
+	for i in range(rows):
+		for j in range(columns):
 			if (mapp[i][j] == 1):
 				if (i-1 >= 0 and mapp[i-1][j] == 0):
 					mapp[i-1][j] = 5;
@@ -98,25 +112,25 @@ def mapping(x, y, mapp): # x and y being the current position of the bot
 					look_down()
 					x = i-1
 					y = j
-					click_picture(i,j)
+					#click_picture(i,j)
 					mapp[i-1][j] = 0
-				elif (j+1 <= columns and mapp[i][j+1] == 0):
+				elif (j+1 < columns and mapp[i][j+1] == 0):
 					mapp[i][j+1] = 5;
 					look(x,y)
 					find_path(x,y)
 					look_left()
 					x = i
 					y = j+1
-					click_picture(i,j)
+					#click_picture(i,j)
 					mapp[i][j+1] = 0
-				elif (i+1 <= rows and mapp[i+1][j] == 0):
+				elif (i+1 < rows and mapp[i+1][j] == 0):
 					mapp[i+1][j] = 5;
 					look(x,y)
 					find_path(x,y)
 					look_up()
 					x = i+1
 					y = j
-					click_picture(i,j)
+					#click_picture(i,j)
 					mapp[i+1][j] = 0
 				elif (j-1 >= 0 and mapp[i][j-1] == 0):
 					mapp[i][j-1] = 5;
@@ -125,7 +139,7 @@ def mapping(x, y, mapp): # x and y being the current position of the bot
 					look_right()
 					x = i
 					y = j-1
-					click_picture(i,j)
+					#click_picture(i,j)
 					mapp[i][j-1] = 0
 				else:
 					print "there is some error"
