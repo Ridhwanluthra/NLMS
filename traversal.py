@@ -68,27 +68,36 @@ def find_path(x, y):
 	print mapp
 	rows = len(mapp)
         columns = len(mapp[0])
-	while (mapp[x][y] != 5):
+	while (mapp[x][y] != 5 and ifs<8):
+		print ([x, y])
 		if x-1 >= 0:
-			if mapp[x-1][y] == 3 or mapp[x-1][y] == 5:					# LEFT
+			if (mapp[x-1][y] == 3 or mapp[x-1][y] == 5):					# LEFT
 				up()
 				x -= 1
 				mapp[x][y] = 0
-		elif x+1 < rows:
-			if mapp[x+1][y] == 3 or mapp[x+1][y] == 5:					# RIGHT
+				print "left"
+				continue
+		if x+1 < rows:
+			if (mapp[x+1][y] == 3 or mapp[x+1][y] == 5):
 				down()
 				x += 1
 				mapp[x][y] = 0
-		elif y+1 < columns:
-			if mapp[x][y+1] == 3 or mapp[x][y+1] == 5:					# DOWN
+				print "right"
+				continue
+		if y+1 < columns:
+			if (mapp[x][y+1] == 3 or mapp[x][y+1] == 5):					# DOWN
 				right()
 				y += 1
 				mapp[x][y] = 0
-		elif y-1 >=0:
-			if mapp[x][y-1] == 3 or mapp[x][y-1] == 5:					# UP
+				print "down"
+				continue
+		if y-1 >=0:
+			if (mapp[x][y-1] == 3 or mapp[x][y-1] == 5):					# UP
 				left()
 				y -= 1
 				mapp[x][y] = 0
+				print "up"
+				continue
 	else:
 		return "you have reached your destination" # put a different kind of result
 
@@ -108,7 +117,7 @@ i can go and take pictures of each obstacle
 # x and y being the current position of the bot
 def mapping(x, y, maps):
 	global mapp
-	mapp=maps
+	mapp = maps
 	rows = len(mapp)
         columns = len(mapp[0])
         look(x,y)
@@ -155,4 +164,3 @@ def mapping(x, y, maps):
 				else:
 					print "there is some error"
 """
-	

@@ -3,7 +3,7 @@ gpio.setmode(gpio.BCM)
 
 leften = 18
 righten = 17
-dps = 30/24  #distance per spoke
+dps = 30.00/24.00  #distance per spoke
 gpio.setup(leften,gpio.IN)
 gpio.setup(righten,gpio.IN)
 counter_left = 0
@@ -24,11 +24,11 @@ def d_move():
         if (a == 1 and b == 0):
             counter_left += 1
             #print "left counter "
-            #print counter_left
+            #print counter_left*dps
         if (c == 1 and d == 0):
             counter_right += 1
             #print "right coutner "
-            #print counter_right
+            #print counter_right*dps
         return [counter_left*dps, counter_right*dps]
 def refresh():
     global a
