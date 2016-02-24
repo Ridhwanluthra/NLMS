@@ -69,22 +69,23 @@ def find_path(x, y):
 	rows = len(mapp)
         columns = len(mapp[0])
 	while (mapp[x][y] != 5):
-		if (x-1 >= 0 and (mapp[x-1][y] == 3 or mapp[x-1][y] == 5)):					# LEFT
-			up()
-			x -= 1
-			mapp[x][y] = 0
-		elif (y+1 < columns and (mapp[x][y+1] == 3 or mapp[x][y+1] == 5)):					# DOWN
-			right()
-			y += 1
-			mapp[x][y] = 0
-		elif (x+1 < rows and (mapp[x+1][y] == 3 or mapp[x+1][y] == 5)):					# RIGHT
-			down()
-			x += 1
-			mapp[x][y] = 0
-		elif (y-1 >= 0 and (mapp[x][y-1] == 3 or mapp[x][y-1] == 5)):					# UP
-			left()
-			y -= 1
-			mapp[x][y] = 0
+		if (x-1 >= 0 and y+1 < columns and x+1 < rows and y-1 >= 0):
+			if mapp[x-1][y] == 3 or mapp[x-1][y] == 5:					# LEFT
+				up()
+				x -= 1
+				mapp[x][y] = 0
+			elif mapp[x][y+1] == 3 or mapp[x][y+1] == 5:					# DOWN
+				right()
+				y += 1
+				mapp[x][y] = 0
+			elif mapp[x+1][y] == 3 or mapp[x+1][y] == 5:					# RIGHT
+				down()
+				x += 1
+				mapp[x][y] = 0
+			elif mapp[x][y-1] == 3 or mapp[x][y-1] == 5:					# UP
+				left()
+				y -= 1
+				mapp[x][y] = 0
 	else:
 		return "you have reached your destination" # put a different kind of result
 
