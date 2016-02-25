@@ -23,12 +23,12 @@ def d_move():
         c = gpio.input(righten)
         if ((a == 1 and b == 0) or (a == 0 and b == 1)):
             counter_left += 1
-            print "left counter "
-            print counter_left*dps/2
+            #print "left counter "
+            #print counter_left*dps/2
         if ((c == 1 and d == 0) or (c == 0 and d == 1)):
             counter_right += 1
-            print "right coutner "
-            print counter_right*dps/2
+            #print "right coutner "
+            #print counter_right*dps/2
         return [counter_left*dps/2, counter_right*dps/2]
 def refresh():
     global a

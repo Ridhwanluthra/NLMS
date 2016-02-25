@@ -68,8 +68,8 @@ def find_path(x, y):
 	print mapp
 	rows = len(mapp)
         columns = len(mapp[0])
+	mapp[x][y] = 0
 	while (mapp[x][y] != 5):
-		print ([x, y])
 		if x-1 >= 0:
 			if (mapp[x-1][y] == 3 or mapp[x-1][y] == 5):					# LEFT
 				up()
@@ -182,4 +182,4 @@ def mapping(x, y, maps):
 					#click_picture(i,j)
 					mapp[i][j-1] = 0
 				else:
-					print "there is some error"
+					print "there is some error in mapping function in file traversal.py"
