@@ -53,7 +53,8 @@ try:
         refresh()
 
     def soft_left():
-        while d_move()[0] < 15:
+        while d_move()[1
+] < 15:
             ml.stop()
             mr.forward(0.5)
         sstop()
@@ -93,15 +94,11 @@ try:
             pass
         elif (direction == 'e'):
             turn_left()
-            #soft_left()
         elif (direction == 'w'):
             turn_right()
-            #soft_right()
         elif (direction == 's'):
             turn_left()
 	    turn_left()
-            #soft_left()
-            #soft_left()
         direction = 'n'
 
     def look_down():
@@ -109,14 +106,10 @@ try:
         if (direction == 'n'):
             turn_left()
             turn_left()
-            #soft_left()
-            #soft_left()
         elif (direction == 'e'):
             turn_right()
-            #soft_right()
         elif (direction == 'w'):
             turn_left()
-            #soft_left()
         elif (direction == 's'):
             pass
         direction = 's'
@@ -125,34 +118,26 @@ try:
         global direction
         if (direction == 'n'):
             turn_left()
-            #soft_left()
         elif (direction == 'e'):
             turn_left()
             turn_left()
-            #soft_left()
-            #soft_left()
         elif (direction == 'w'):
             pass
         elif (direction == 's'):
             turn_right()
-            #soft_right()
         direction = 'w'
 
     def look_right():
         global direction
         if (direction == 'n'):
             turn_right()
-            #soft_right()
         elif (direction == 'e'):
             pass
         elif (direction == 'w'):
             turn_left()
             turn_left()
-            #soft_left()
-            #soft_left()
         elif (direction == 's'):
             turn_left()
-            #soft_left()
         direction = 'e'
 except KeyboardInterrupt:
     print "cleaning"
