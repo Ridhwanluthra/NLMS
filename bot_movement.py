@@ -24,23 +24,23 @@ try:
     	if usfront <= 5:
             print "error"
     	else:
-            ml.forward()
-            mr.forward()
+            ml.forward(0.5)
+            mr.forward(0.5)
 
     def sstop():
         ml.stop()
         mr.stop()
     def turn_left():
         while d_move()[0] < 11 and d_move()[1] < 11:
-            ml.backward()
-            mr.forward()
+            ml.backward(0.5)
+            mr.forward(0.5)
         sstop()
         refresh()
 
     def turn_right():
         while d_move()[0] < 10 and d_move()[1] < 10:
-            ml.forward()
-            mr.backward()
+            ml.forward(0.5)
+            mr.backward(0.5)
         sstop()
         refresh()
 
