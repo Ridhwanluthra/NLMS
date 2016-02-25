@@ -3,8 +3,8 @@ from gpiozero import Motor
 #import RPi.GPIO as GPIO
 from encoders import d_move, refresh
 
-ml = Motor(2, 3)
-mr = Motor(14, 15)
+mr = Motor(2, 3)
+ml = Motor(14, 15)
 ml.stop()
 mr.stop()
 """
@@ -24,23 +24,38 @@ try:
     	if usfront <= 5:
             print "error"
     	else:
-            ml.forward(0.5)
+            ml.forward(0.553)
             mr.forward(0.5)
 
     def sstop():
         ml.stop()
         mr.stop()
+        
     def turn_left():
-        while d_move()[0] < 11 and d_move()[1] < 11:
-            ml.backward(0.5)
+        while d_move()[0] < 14.6 and d_move()[1] < 14.6:
+            ml.backward(0.555)
             mr.forward(0.5)
         sstop()
         refresh()
 
     def turn_right():
-        while d_move()[0] < 10 and d_move()[1] < 10:
-            ml.forward(0.5)
+        while d_move()[0] < 14.6 and d_move()[1] < 14.6:
+            ml.forward(0.555)
             mr.backward(0.5)
+        sstop()
+        refresh()
+        
+    def soft_right():
+        while d_move()[0] < 15:
+            ml.forward(0.555)
+            mr.stop()
+        sstop()
+        refresh()
+
+    def soft_left():
+        while d_move()[0] < 15:
+            ml.stop()
+            mr.forward(0.5)
         sstop()
         refresh()
 
@@ -77,23 +92,31 @@ try:
         if (direction == 'n'):
             pass
         elif (direction == 'e'):
-            turn_left()
+            #turn_left()
+            soft_left()
         elif (direction == 'w'):
-            turn_right()
+            #turn_right()
+            soft_right()
         elif (direction == 's'):
-            turn_left()
-	    turn_left()
+            #turn_left()
+	    #turn_left()
+            soft_left()
+            soft_left()
         direction = 'n'
 
     def look_down():
         global direction
         if (direction == 'n'):
-            turn_left()
-            turn_left()
+            #turn_left()
+            #turn_left()
+            soft_left()
+            soft_left()
         elif (direction == 'e'):
-            turn_right()
+            #turn_right()
+            soft_right()
         elif (direction == 'w'):
-            turn_left()
+            #turn_left()
+            soft_left()
         elif (direction == 's'):
             pass
         direction = 's'
@@ -101,27 +124,35 @@ try:
     def look_left():
         global direction
         if (direction == 'n'):
-            turn_left()
+            #turn_left()
+            soft_left()
         elif (direction == 'e'):
-            turn_left()
-            turn_left()
+            #turn_left()
+            #turn_left()
+            soft_left()
+            soft_left()
         elif (direction == 'w'):
             pass
         elif (direction == 's'):
-            turn_right()
+            #turn_right()
+            soft_right()
         direction = 'w'
 
     def look_right():
         global direction
         if (direction == 'n'):
-            turn_right()
+            #turn_right()
+            soft_right()
         elif (direction == 'e'):
             pass
         elif (direction == 'w'):
-            turn_left()
-            turn_left()
+            #turn_left()
+            #turn_left()
+            soft_left()
+            soft_left()
         elif (direction == 's'):
-            turn_left()
+            #turn_left()
+            soft_left()
         direction = 'e'
 except KeyboardInterrupt:
     print "cleaning"

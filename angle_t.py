@@ -1,6 +1,6 @@
 import bot_movement as bm
 from time import sleep
 
-bm.turn_left()
+bm.soft_right()
 sleep(2)
-bm.turn_right()
+#bm.soft_right()
