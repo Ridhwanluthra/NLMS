@@ -3,7 +3,7 @@ gpio.setmode(gpio.BCM)
 
 leften = 18
 righten = 17
-dps = 30.00/24.00  #distance per spoke
+dps = 30.000/24.000  #distance per spoke
 gpio.setup(leften,gpio.IN)
 gpio.setup(righten,gpio.IN)
 counter_left = 0
