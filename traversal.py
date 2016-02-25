@@ -68,7 +68,7 @@ def find_path(x, y):
 	print mapp
 	rows = len(mapp)
         columns = len(mapp[0])
-	while (mapp[x][y] != 5 and ifs<8):
+	while (mapp[x][y] != 5):
 		print ([x, y])
 		if x-1 >= 0:
 			if (mapp[x-1][y] == 3 or mapp[x-1][y] == 5):					# LEFT
