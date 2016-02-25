@@ -8,6 +8,7 @@
 # take input of the start and the end point
 
 from bot_movement import *
+from time import sleep
 #from click_picture import click_picture
 
 """
@@ -55,7 +56,7 @@ def look(x, y):
 		return True
 	if (look(x,y-1) == True):
 		return True
-	#mapp[x][y] = 4
+	mapp[x][y] = 0
 	return False
 
 """
@@ -71,15 +72,16 @@ def find_path(x, y):
 	mapp[x][y] = 0
 	while (mapp[x][y] != 5):
 		if x-1 >= 0:
-			if (mapp[x-1][y] == 3 or mapp[x-1][y] == 5):					# LEFT
+			if (mapp[x-1][y] == 3 or mapp[x-1][y] == 5):
 				up()
 				x -= 1
 				if mapp[x][y] == 5:
                                     mapp[x][y] = 0
+				    print "up"
                                     break
                                 else:
                                     mapp[x][y] = 0
-                                    print "left"
+                                    print "up"
                                     continue
 		if x+1 < rows:
 			if (mapp[x+1][y] == 3 or mapp[x+1][y] == 5):
@@ -87,32 +89,35 @@ def find_path(x, y):
 				x += 1
 				if mapp[x][y] == 5:
                                     mapp[x][y] = 0
-                                    break
-                                else:
-                                    mapp[x][y] = 0
-                                    print "right"
-                                    continue
-		if y+1 < columns:
-			if (mapp[x][y+1] == 3 or mapp[x][y+1] == 5):					# DOWN
-				right()
-				y += 1
-				if mapp[x][y] == 5:
-                                    mapp[x][y] = 0
+				    print "down"
                                     break
                                 else:
                                     mapp[x][y] = 0
                                     print "down"
                                     continue
+		if y+1 < columns:
+			if (mapp[x][y+1] == 3 or mapp[x][y+1] == 5):
+				right()
+				y += 1
+				if mapp[x][y] == 5:
+                                    mapp[x][y] = 0
+				    print "right"
+                                    break
+                                else:
+                                    mapp[x][y] = 0
+                                    print "right"
+                                    continue
 		if y-1 >=0:
-			if (mapp[x][y-1] == 3 or mapp[x][y-1] == 5):					# UP
+			if (mapp[x][y-1] == 3 or mapp[x][y-1] == 5):
 				left()
 				y -= 1
 				if mapp[x][y] == 5:
                                     mapp[x][y] = 0
+				    print "left"
                                     break
                                 else:
                                     mapp[x][y] = 0
-                                    print "up"
+                                    print "left"
                                     continue
 	else:
 		return "you have reached your destination" # put a different kind of result
@@ -147,6 +152,7 @@ def mapping(x, y, maps):
 					look(x,y)
 					find_path(x,y)
 					look_down()
+					sleep(2)
 					x = i-1
 					y = j
 					#click_picture(i,j)
@@ -157,6 +163,7 @@ def mapping(x, y, maps):
 					look(x,y)
 					find_path(x,y)
 					look_left()
+					sleep(2)
 					x = i
 					y = j+1
 					#click_picture(i,j)
@@ -167,6 +174,7 @@ def mapping(x, y, maps):
 					look(x,y)
 					find_path(x,y)
 					look_up()
+					sleep(2)
 					x = i+1
 					y = j
 					#click_picture(i,j)
@@ -177,6 +185,7 @@ def mapping(x, y, maps):
 					look(x,y)
 					find_path(x,y)
 					look_right()
+					sleep(2)
 					x = i
 					y = j-1
 					#click_picture(i,j)
