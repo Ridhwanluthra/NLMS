@@ -10,7 +10,7 @@ j_=1
 
 camera.vflip=True
 camera.contrast=60
-camera.resolution=(480,360)
+camera.resolution=(300,200)
 direc='img_{0}{1}.jpg'.format(i_,j_)
 camera.capture(direc)
         #analysis of image
