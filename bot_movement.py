@@ -2,6 +2,8 @@ from gpiozero import Motor
 #from gpiozero.Pin import
 #import RPi.GPIO as GPIO
 from encoders import d_move, refresh
+from ultrasonic import ultra
+from anomaly import check
 
 ml = Motor(2, 3)
 mr = Motor(14, 15)
@@ -16,61 +18,73 @@ the bot can make only 90 degree turns
 
 
 direction = 'n' # n,e,w,s for different locations that it is facing
-usfront = 20
 
 try:
-	# ADD SOMETHING TO DO WHEN US IS LESS THAN 5;
     def forward():
-    	if usfront <= 5:
-            print "error"
-    	else:
-            ml.forward()
-            mr.forward()
+        ml.forward(0.5)
+        mr.forward(0.5)
 
     def sstop():
         ml.stop()
         mr.stop()
+
     def turn_left():
         while d_move()[0] < 11 and d_move()[1] < 11:
-            ml.backward()
-            mr.forward()
+            ml.backward(0.5)
+            mr.forward(0.5)
         sstop()
         refresh()
 
     def turn_right():
         while d_move()[0] < 10 and d_move()[1] < 10:
-            ml.forward()
-            mr.backward()
+            ml.forward(0.5)
+            mr.backward(0.5)
         sstop()
         refresh()
 
     def up():
         look_up()
-        while d_move()[0] <= 20 and d_move()[1] <= 20:
-            forward()
-        sstop()
-        refresh()
+        if check() == True:
+	        while d_move()[0] <= 20 and d_move()[1] <= 20:
+	            forward()
+        	sstop()
+        	refresh()
+        	return True
+        else:
+        	return False
 
     def left():
         look_left()
-        while d_move()[0] <= 20 and d_move()[1] <= 20:
-            forward()
-        sstop()
-        refresh()
+        if check() == True:
+	        while d_move()[0] <= 20 and d_move()[1] <= 20:
+	            forward()
+	        sstop()
+	        refresh()
+	        return True
+	    else:
+	    	return False
 
     def right():
         look_right()
-        while d_move()[0] <= 20 and d_move()[1] <= 20:
-            forward()
-        sstop()
-        refresh()
+        if check() == True
+	        while d_move()[0] <= 20 and d_move()[1] <= 20:
+	            forward()
+	        sstop()
+	        refresh()
+	        return True
+	    else:
+	    	return False
 
     def down():
         look_down()
-        while d_move()[0] <= 20 and d_move()[1] <= 20:
-            forward()
-        sstop()
-        refresh()
+        if check() == True:
+	        while d_move()[0] <= 20 and d_move()[1] <= 20:
+	            forward()
+	        sstop()
+	        refresh()
+	        return True
+	    else:
+	    	return False
 
     def look_up():
         global direction

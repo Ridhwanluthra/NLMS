@@ -71,35 +71,43 @@ def find_path(x, y):
 	while (mapp[x][y] != 5):
 		print ([x, y])
 		if x-1 >= 0:
-			if (mapp[x-1][y] == 3 or mapp[x-1][y] == 5):					# LEFT
-				up()
-				x -= 1
-				mapp[x][y] = 0
-				print "left"
-				continue
+			if (mapp[x-1][y] == 3 or mapp[x-1][y] == 5):
+				if up() == True:
+					x -= 1
+					mapp[x][y] = 0
+					print "left"
+					continue
+				else:
+					return False
 		if x+1 < rows:
 			if (mapp[x+1][y] == 3 or mapp[x+1][y] == 5):
-				down()
-				x += 1
-				mapp[x][y] = 0
-				print "right"
-				continue
+				if down() == True:
+					x += 1
+					mapp[x][y] = 0
+					print "right"
+					continue
+				else:
+					return False
 		if y+1 < columns:
-			if (mapp[x][y+1] == 3 or mapp[x][y+1] == 5):					# DOWN
-				right()
-				y += 1
-				mapp[x][y] = 0
-				print "down"
-				continue
+			if (mapp[x][y+1] == 3 or mapp[x][y+1] == 5):
+				if right() == True:
+					y += 1
+					mapp[x][y] = 0
+					print "down"
+					continue
+				else:
+					return False
 		if y-1 >=0:
-			if (mapp[x][y-1] == 3 or mapp[x][y-1] == 5):					# UP
-				left()
-				y -= 1
-				mapp[x][y] = 0
-				print "up"
-				continue
+			if (mapp[x][y-1] == 3 or mapp[x][y-1] == 5):
+				if left() == True:
+					y -= 1
+					mapp[x][y] = 0
+					print "up"
+					continue
+				else:
+					return False
 	else:
-		return "you have reached your destination" # put a different kind of result
+		return True
 
 """
 I have reached my final destination
@@ -121,14 +129,18 @@ def mapping(x, y, maps):
 	rows = len(mapp)
         columns = len(mapp[0])
         look(x,y)
-	find_path(x,y)
+	if find_path(x,y) == False:
+		# add the code for handling anomalies
+		pass
 	"""for i in range(rows):
 		for j in range(columns):
 			if (mapp[i][j] == 1):
 				if (i-1 >= 0 and mapp[i-1][j] == 0):
 					mapp[i-1][j] = 5;
 					look(x,y)
-					find_path(x,y)
+					if find_path(x,y) == False:
+						#add a way to break both loops
+						pass
 					look_down()
 					x = i-1
 					y = j
@@ -137,7 +149,9 @@ def mapping(x, y, maps):
 				elif (j+1 < columns and mapp[i][j+1] == 0):
 					mapp[i][j+1] = 5;
 					look(x,y)
-					find_path(x,y)
+					if find_path(x,y) == False:
+						#add a way to break both loops
+						pass
 					look_left()
 					x = i
 					y = j+1
@@ -146,7 +160,9 @@ def mapping(x, y, maps):
 				elif (i+1 < rows and mapp[i+1][j] == 0):
 					mapp[i+1][j] = 5;
 					look(x,y)
-					find_path(x,y)
+					if find_path(x,y) == False:
+						#add a way to break both loops
+						pass
 					look_up()
 					x = i+1
 					y = j
@@ -155,7 +171,9 @@ def mapping(x, y, maps):
 				elif (j-1 >= 0 and mapp[i][j-1] == 0):
 					mapp[i][j-1] = 5;
 					look(x,y)
-					find_path(x,y)
+					if find_path(x,y) == False:
+						#add a way to break both loops
+						pass
 					look_right()
 					x = i
 					y = j-1
