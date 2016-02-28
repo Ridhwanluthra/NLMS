@@ -2,6 +2,7 @@
 
 #from sys import argv
 from traversal import mapping
+from first_traversal import first_mapping
 #from edging import edging
 
 #image_matrix = edging(argv[1]) # convert the picture into edges and return the sub_matrix
@@ -11,6 +12,8 @@ y=0
 
 # add the ultrasonic sensors to find and save from obstacles.
 image_matrix = [[0,0,0,0,1,0],[0,0,1,0,0,0],[1,1,1,0,0,0],[1,0,0,0,1,1],[0,0,0,0,0,0]]
+
+first_mapping(x, y, image_matrix)
 
 while True:
 	mapping(x, y, image_matrix)
