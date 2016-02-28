@@ -15,9 +15,9 @@ def getcoords(digit):
         if list_of_lines[i][0]==digit_as_char:
             return [list_of_lines[i][1], list_of_lines[i][2]]
             pass
-        else:
-            print "Digit not found"
-            return [-1]
+    else:
+        print "Digit not found"
+        return [-1]
 def getdigit(x, y):
     x_as_str=str(x)
     y_as_str=str(y)
