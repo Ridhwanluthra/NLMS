@@ -8,6 +8,7 @@
 # take input of the start and the end point
 
 from bot_movement import *
+from time import sleep
 #from click_picture import click_picture
 
 """
@@ -55,7 +56,7 @@ def look(x, y):
 		return True
 	if (look(x,y-1) == True):
 		return True
-	mapp[x][y] = 4
+	mapp[x][y] = 0
 	return False
 
 """
@@ -68,44 +69,67 @@ def find_path(x, y):
 	print mapp
 	rows = len(mapp)
         columns = len(mapp[0])
+	mapp[x][y] = 0
 	while (mapp[x][y] != 5):
-		print ([x, y])
 		if x-1 >= 0:
 			if (mapp[x-1][y] == 3 or mapp[x-1][y] == 5):
 				if up() == True:
-					x -= 1
-					mapp[x][y] = 0
-					print "left"
-					continue
-				else:
-					return False
+                                        x -= 1
+                                        if mapp[x][y] == 5:
+                                            mapp[x][y] = 0
+                                            print "up"
+                                            break
+                                        else:
+                                            mapp[x][y] = 0
+                                            print "up"
+                                            continue
+                                else:
+                                        return False
+                                
 		if x+1 < rows:
 			if (mapp[x+1][y] == 3 or mapp[x+1][y] == 5):
 				if down() == True:
-					x += 1
-					mapp[x][y] = 0
-					print "right"
-					continue
-				else:
-					return False
+                                        x += 1
+                                        if mapp[x][y] == 5:
+                                            mapp[x][y] = 0
+                                            print "down"
+                                            break
+                                        else:
+                                            mapp[x][y] = 0
+                                            print "down"
+                                            continue
+                                else:
+                                        return False
+                                
 		if y+1 < columns:
 			if (mapp[x][y+1] == 3 or mapp[x][y+1] == 5):
 				if right() == True:
-					y += 1
-					mapp[x][y] = 0
-					print "down"
-					continue
-				else:
-					return False
+                                        y += 1
+                                        if mapp[x][y] == 5:
+                                            mapp[x][y] = 0
+                                            print "right"
+                                            break
+                                        else:
+                                            mapp[x][y] = 0
+                                            print "right"
+                                            continue
+                                else:
+                                        return False
+                                
 		if y-1 >=0:
 			if (mapp[x][y-1] == 3 or mapp[x][y-1] == 5):
 				if left() == True:
-					y -= 1
-					mapp[x][y] = 0
-					print "up"
-					continue
-				else:
-					return False
+                                        y -= 1
+                                        if mapp[x][y] == 5:
+                                            mapp[x][y] = 0
+                                            print "left"
+                                            break
+                                        else:
+                                            mapp[x][y] = 0
+                                            print "left"
+                                            continue
+                                else:
+                                        return False
 	else:
 		return True
 
@@ -128,57 +152,60 @@ def mapping(x, y, maps):
 	mapp = maps
 	rows = len(mapp)
         columns = len(mapp[0])
-        look(x,y)
-	if find_path(x,y) == False:
-		# add the code for handling anomalies
-		pass
-	"""for i in range(rows):
+	for i in range(rows):
 		for j in range(columns):
 			if (mapp[i][j] == 1):
 				if (i-1 >= 0 and mapp[i-1][j] == 0):
+                                        global mapp
 					mapp[i-1][j] = 5;
 					look(x,y)
 					if find_path(x,y) == False:
 						#add a way to break both loops
 						pass
 					look_down()
+					sleep(2)
 					x = i-1
 					y = j
 					#click_picture(i,j)
 					mapp[i-1][j] = 0
 				elif (j+1 < columns and mapp[i][j+1] == 0):
+                                        global mapp
 					mapp[i][j+1] = 5;
 					look(x,y)
 					if find_path(x,y) == False:
 						#add a way to break both loops
 						pass
 					look_left()
+					sleep(2)
 					x = i
 					y = j+1
 					#click_picture(i,j)
 					mapp[i][j+1] = 0
 				elif (i+1 < rows and mapp[i+1][j] == 0):
+                                        global mapp
 					mapp[i+1][j] = 5;
 					look(x,y)
 					if find_path(x,y) == False:
 						#add a way to break both loops
 						pass
 					look_up()
+					sleep(2)
 					x = i+1
 					y = j
 					#click_picture(i,j)
 					mapp[i+1][j] = 0
 				elif (j-1 >= 0 and mapp[i][j-1] == 0):
+                                        global mapp
 					mapp[i][j-1] = 5;
 					look(x,y)
 					if find_path(x,y) == False:
 						#add a way to break both loops
 						pass
 					look_right()
+					sleep(2)
 					x = i
 					y = j-1
 					#click_picture(i,j)
 					mapp[i][j-1] = 0
 				else:
-					print "there is some error"
-"""
+					print "there is some error in mapping function in file traversal.py"
