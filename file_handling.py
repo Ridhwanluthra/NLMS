@@ -5,6 +5,7 @@ def write_in_file(digit, x, y):
     lst=[digit, x, y]
     with open(file_name,'a') as myfile:
         myfile.write("".join(map(str, lst)))
+        myfile.write('\n')
 
 def getcoords(digit):
     digit_as_char=str(digit)
