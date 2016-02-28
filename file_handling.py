@@ -26,6 +26,6 @@ def getdigit(x, y):
     for i in range (len(list_of_lines)):
         if list_of_lines[i][1]==x_as_str and list_of_lines[i][2]==y_as_str:
             return digit
-        else:
-            print "No number at this coordinate"
-            return -1
+    else:
+        print "No number at this coordinate"
+        return -1
