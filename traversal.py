@@ -74,30 +74,46 @@ def find_path(x, y):
 			if (mapp[x-1][y] == 3 or mapp[x-1][y] == 5):					# LEFT
 				up()
 				x -= 1
-				mapp[x][y] = 0
-				print "left"
-				continue
+				if mapp[x][y] == 5:
+                                    mapp[x][y] = 0
+                                    break
+                                else:
+                                    mapp[x][y] = 0
+                                    print "left"
+                                    continue
 		if x+1 < rows:
 			if (mapp[x+1][y] == 3 or mapp[x+1][y] == 5):
 				down()
 				x += 1
-				mapp[x][y] = 0
-				print "right"
-				continue
+				if mapp[x][y] == 5:
+                                    mapp[x][y] = 0
+                                    break
+                                else:
+                                    mapp[x][y] = 0
+                                    print "right"
+                                    continue
 		if y+1 < columns:
 			if (mapp[x][y+1] == 3 or mapp[x][y+1] == 5):					# DOWN
 				right()
 				y += 1
-				mapp[x][y] = 0
-				print "down"
-				continue
+				if mapp[x][y] == 5:
+                                    mapp[x][y] = 0
+                                    break
+                                else:
+                                    mapp[x][y] = 0
+                                    print "down"
+                                    continue
 		if y-1 >=0:
 			if (mapp[x][y-1] == 3 or mapp[x][y-1] == 5):					# UP
 				left()
 				y -= 1
-				mapp[x][y] = 0
-				print "up"
-				continue
+				if mapp[x][y] == 5:
+                                    mapp[x][y] = 0
+                                    break
+                                else:
+                                    mapp[x][y] = 0
+                                    print "up"
+                                    continue
 	else:
 		return "you have reached your destination" # put a different kind of result
 
@@ -120,12 +136,13 @@ def mapping(x, y, maps):
 	mapp = maps
 	rows = len(mapp)
         columns = len(mapp[0])
-        look(x,y)
-	find_path(x,y)
-	"""for i in range(rows):
+        #look(x,y)
+	#find_path(x,y)
+	for i in range(rows):
 		for j in range(columns):
 			if (mapp[i][j] == 1):
 				if (i-1 >= 0 and mapp[i-1][j] == 0):
+                                        global mapp
 					mapp[i-1][j] = 5;
 					look(x,y)
 					find_path(x,y)
@@ -135,6 +152,7 @@ def mapping(x, y, maps):
 					#click_picture(i,j)
 					mapp[i-1][j] = 0
 				elif (j+1 < columns and mapp[i][j+1] == 0):
+                                        global mapp
 					mapp[i][j+1] = 5;
 					look(x,y)
 					find_path(x,y)
@@ -144,6 +162,7 @@ def mapping(x, y, maps):
 					#click_picture(i,j)
 					mapp[i][j+1] = 0
 				elif (i+1 < rows and mapp[i+1][j] == 0):
+                                        global mapp
 					mapp[i+1][j] = 5;
 					look(x,y)
 					find_path(x,y)
@@ -153,6 +172,7 @@ def mapping(x, y, maps):
 					#click_picture(i,j)
 					mapp[i+1][j] = 0
 				elif (j-1 >= 0 and mapp[i][j-1] == 0):
+                                        global mapp
 					mapp[i][j-1] = 5;
 					look(x,y)
 					find_path(x,y)
@@ -163,4 +183,3 @@ def mapping(x, y, maps):
 					mapp[i][j-1] = 0
 				else:
 					print "there is some error"
-"""
