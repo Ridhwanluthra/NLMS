@@ -55,7 +55,7 @@ def look(x, y):
 		return True
 	if (look(x,y-1) == True):
 		return True
-	mapp[x][y] = 4
+	#mapp[x][y] = 4
 	return False
 
 """
