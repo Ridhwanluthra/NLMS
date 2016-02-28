@@ -13,7 +13,8 @@ is facing upwards at 0,0
 the bot can make only 90 degree turns
 """
 
-
+lm = 20
+rm = 14.6
 
 direction = 'n' # n,e,w,s for different locations that it is facing
 usfront = 20
@@ -32,14 +33,14 @@ try:
         mr.stop()
         
     def turn_left():
-        while d_move()[0] < 14.6 and d_move()[1] < 14.6:
+        while d_move()[0] < rm and d_move()[1] < rm:
             ml.backward(0.555)
             mr.forward(0.5)
         sstop()
         refresh()
 
     def turn_right():
-        while d_move()[0] < 14.6 and d_move()[1] < 14.6:
+        while d_move()[0] < rm and d_move()[1] < rm:
             ml.forward(0.555)
             mr.backward(0.5)
         sstop()
@@ -61,28 +62,28 @@ try:
 
     def up():
         look_up()
-        while d_move()[0] <= 20 and d_move()[1] <= 20:
+        while d_move()[0] <= lm and d_move()[1] <= lm:
             forward()
         sstop()
         refresh()
 
     def left():
         look_left()
-        while d_move()[0] <= 20 and d_move()[1] <= 20:
+        while d_move()[0] <= lm and d_move()[1] <= lm:
             forward()
         sstop()
         refresh()
 
     def right():
         look_right()
-        while d_move()[0] <= 20 and d_move()[1] <= 20:
+        while d_move()[0] <= lm and d_move()[1] <= lm:
             forward()
         sstop()
         refresh()
 
     def down():
         look_down()
-        while d_move()[0] <= 20 and d_move()[1] <= 20:
+        while d_move()[0] <= lm and d_move()[1] <= lm:
             forward()
         sstop()
         refresh()
