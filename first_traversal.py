@@ -9,6 +9,7 @@
 
 from bot_movement import *
 from time import sleep
+import file_handling as file_h
 #from click_picture import click_picture
 
 """
@@ -156,7 +157,10 @@ def first_mapping(x, y, maps):
 					sleep(2)
 					x = i-1
 					y = j
-					#click_picture(i,j)
+					"""
+					digit = click_picture(i, j)
+					file_h.write_in_file(digit, i, j)
+					"""
 					mapp[i-1][j] = 0
 				elif (j+1 < columns and mapp[i][j+1] == 0):
                                         global mapp
@@ -167,7 +171,10 @@ def first_mapping(x, y, maps):
 					sleep(2)
 					x = i
 					y = j+1
-					#click_picture(i,j)
+					"""
+					digit = click_picture(i, j)
+					file_h.write_in_file(digit, i, j)
+					"""
 					mapp[i][j+1] = 0
 				elif (i+1 < rows and mapp[i+1][j] == 0):
                                         global mapp
@@ -178,7 +185,10 @@ def first_mapping(x, y, maps):
 					sleep(2)
 					x = i+1
 					y = j
-					#click_picture(i,j)
+					"""
+					digit = click_picture(i, j)
+					file_h.write_in_file(digit, i, j)
+					"""
 					mapp[i+1][j] = 0
 				elif (j-1 >= 0 and mapp[i][j-1] == 0):
                                         global mapp
@@ -189,7 +199,10 @@ def first_mapping(x, y, maps):
 					sleep(2)
 					x = i
 					y = j-1
-					#click_picture(i,j)
+					"""
+					digit = click_picture(i, j)
+					file_h.write_in_file(digit, i, j)
+					"""
 					mapp[i][j-1] = 0
 				else:
 					print "there is some error in mapping function in file traversal.py"

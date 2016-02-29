@@ -15,7 +15,6 @@ from time import sleep
 I get a matrix which has some 0's and 1's
 I get a start point and an end point
 """
-
 """
 I have a way to move in different directions
 I still have to configure these functions
@@ -166,7 +165,11 @@ def mapping(x, y, maps):
 					sleep(2)
 					x = i-1
 					y = j
-					#click_picture(i,j)
+					"""
+					digit = click_picture(i, j)
+					if file_h.getcoords(digit)[0] != i or file_h.getcoords(digit)[1] != j:
+                                                #correct the location
+					"""
 					mapp[i-1][j] = 0
 				elif (j+1 < columns and mapp[i][j+1] == 0):
                                         global mapp
@@ -179,7 +182,11 @@ def mapping(x, y, maps):
 					sleep(2)
 					x = i
 					y = j+1
-					#click_picture(i,j)
+					"""
+					digit = click_picture(i, j)
+					if file_h.getcoords(digit)[0] != i or file_h.getcoords(digit)[1] != j:
+                                                #correct the location
+					"""
 					mapp[i][j+1] = 0
 				elif (i+1 < rows and mapp[i+1][j] == 0):
                                         global mapp
@@ -192,7 +199,11 @@ def mapping(x, y, maps):
 					sleep(2)
 					x = i+1
 					y = j
-					#click_picture(i,j)
+					"""
+					digit = click_picture(i, j)
+					if file_h.getcoords(digit)[0] != i or file_h.getcoords(digit)[1] != j:
+                                                #correct the location
+					"""
 					mapp[i+1][j] = 0
 				elif (j-1 >= 0 and mapp[i][j-1] == 0):
                                         global mapp
@@ -205,7 +216,11 @@ def mapping(x, y, maps):
 					sleep(2)
 					x = i
 					y = j-1
-					#click_picture(i,j)
+					"""
+					digit = click_picture(i, j)
+					if file_h.getcoords(digit)[0] != i or file_h.getcoords(digit)[1] != j:
+                                                #correct the location
+					"""
 					mapp[i][j-1] = 0
 				else:
 					print "there is some error in mapping function in file traversal.py"

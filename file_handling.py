@@ -1,9 +1,7 @@
 # In below statements, write 'a' for appending in file; 'w' for just writing in file; 'r' for just reading the file
 
 file_name='coords.txt'
-digit=8
-x=2
-y=2
+
 def write_in_file(digit, x, y):
     lst=[digit, x, y]
     with open(file_name,'a') as myfile:
