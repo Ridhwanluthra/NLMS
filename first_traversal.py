@@ -67,6 +67,8 @@ which i can follow to get my bot to the final location
 
 def first_find_path(x, y):
 	global mapp
+	global x
+	global y
 	print mapp
 	rows = len(mapp)
         columns = len(mapp[0])
@@ -130,6 +132,17 @@ I found where there was 3 and accordingly
 I moved the bot to the location needed
 """
 
+def go_to_origin(x,y):
+        global mapp
+        global x
+        global y
+        mapp[0][0] = 5;
+        look(x,y)
+        find_path(x,y)
+        x = 0
+        y = 0
+        mapp[i][j] = 0
+
 """
 Now i need to create a function that can make
 each location i have to go to 5 in turn so that
@@ -150,6 +163,8 @@ def first_mapping(x, y, maps):
 			if (mapp[i][j] == 1):
 				if (i-1 >= 0 and mapp[i-1][j] == 0):
                                         global mapp
+                                        global x
+                                        global y
 					mapp[i-1][j] = 5;
 					first_look(x,y)
 					first_find_path(x,y)
@@ -164,6 +179,8 @@ def first_mapping(x, y, maps):
 					mapp[i-1][j] = 0
 				elif (j+1 < columns and mapp[i][j+1] == 0):
                                         global mapp
+                                        global x
+                                        global y
 					mapp[i][j+1] = 5;
 					first_look(x,y)
 					first_find_path(x,y)
@@ -178,6 +195,8 @@ def first_mapping(x, y, maps):
 					mapp[i][j+1] = 0
 				elif (i+1 < rows and mapp[i+1][j] == 0):
                                         global mapp
+                                        global x
+                                        global y
 					mapp[i+1][j] = 5;
 					first_look(x,y)
 					first_find_path(x,y)
@@ -192,6 +211,8 @@ def first_mapping(x, y, maps):
 					mapp[i+1][j] = 0
 				elif (j-1 >= 0 and mapp[i][j-1] == 0):
                                         global mapp
+                                        global x
+                                        global y
 					mapp[i][j-1] = 5;
 					first_look(x,y)
 					first_find_path(x,y)
@@ -206,3 +227,5 @@ def first_mapping(x, y, maps):
 					mapp[i][j-1] = 0
 				else:
 					print "there is some error in mapping function in file traversal.py"
+        first_go_to_origin(x,y)
+	return [x,y]	

@@ -16,4 +16,8 @@ image_matrix = [[0,0,0,0,1,0],[0,0,1,0,0,0],[1,1,1,0,0,0],[1,0,0,0,1,1],[0,0,0,0
 first_mapping(x, y, image_matrix)
 
 while True:
-	mapping(x, y, image_matrix)
+	if mapping(x, y, image_matrix) == True:
+                continue
+        else:
+                #handle the anomaly and then
+                continue
