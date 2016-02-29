@@ -65,6 +65,8 @@ which i can follow to get my bot to the final location
 
 def find_path(x, y):
 	global mapp
+	global x
+	global y
 	print mapp
 	rows = len(mapp)
         columns = len(mapp[0])
@@ -139,6 +141,17 @@ I found where there was 3 and accordingly
 I moved the bot to the location needed
 """
 
+def go_to_origin(x,y):
+        global mapp
+        global x
+        global y
+        mapp[0][0] = 5;
+        look(x,y)
+        find_path(x,y)
+        x = 0
+        y = 0
+        mapp[i][j] = 0
+
 """
 Now i need to create a function that can make
 each location i have to go to 5 in turn so that
@@ -146,81 +159,25 @@ i can go and take pictures of each obstacle
 """
 
 # x and y being the current position of the bot
-def mapping(x, y, maps):
+def mapping(inx, iny, maps):
 	global mapp
+	
 	mapp = maps
 	rows = len(mapp)
         columns = len(mapp[0])
 	for i in range(rows):
 		for j in range(columns):
-			if (mapp[i][j] == 1):
-				if (i-1 >= 0 and mapp[i-1][j] == 0):
-                                        global mapp
-					mapp[i-1][j] = 5;
-					look(x,y)
-					if find_path(x,y) == False:
-						#add a way to break both loops
-						pass
-					look_down()
-					sleep(2)
-					x = i-1
-					y = j
-					"""
-					digit = click_picture(i, j)
-					if file_h.getcoords(digit)[0] != i or file_h.getcoords(digit)[1] != j:
-                                                #correct the location
-					"""
-					mapp[i-1][j] = 0
-				elif (j+1 < columns and mapp[i][j+1] == 0):
-                                        global mapp
-					mapp[i][j+1] = 5;
-					look(x,y)
-					if find_path(x,y) == False:
-						#add a way to break both loops
-						pass
-					look_left()
-					sleep(2)
-					x = i
-					y = j+1
-					"""
-					digit = click_picture(i, j)
-					if file_h.getcoords(digit)[0] != i or file_h.getcoords(digit)[1] != j:
-                                                #correct the location
-					"""
-					mapp[i][j+1] = 0
-				elif (i+1 < rows and mapp[i+1][j] == 0):
-                                        global mapp
-					mapp[i+1][j] = 5;
-					look(x,y)
-					if find_path(x,y) == False:
-						#add a way to break both loops
-						pass
-					look_up()
-					sleep(2)
-					x = i+1
-					y = j
-					"""
-					digit = click_picture(i, j)
-					if file_h.getcoords(digit)[0] != i or file_h.getcoords(digit)[1] != j:
-                                                #correct the location
-					"""
-					mapp[i+1][j] = 0
-				elif (j-1 >= 0 and mapp[i][j-1] == 0):
-                                        global mapp
-					mapp[i][j-1] = 5;
-					look(x,y)
-					if find_path(x,y) == False:
-						#add a way to break both loops
-						pass
-					look_right()
-					sleep(2)
-					x = i
-					y = j-1
-					"""
-					digit = click_picture(i, j)
-					if file_h.getcoords(digit)[0] != i or file_h.getcoords(digit)[1] != j:
-                                                #correct the location
-					"""
-					mapp[i][j-1] = 0
-				else:
-					print "there is some error in mapping function in file traversal.py"
+			if (mapp[i][j] != 1):
+                                global mapp
+                                global x
+                                global y
+                                mapp[i][j] = 5;
+                                look(x,y)
+                                if find_path(x,y) == False:
+                                        return False
+                                x = i
+                                y = j
+                                mapp[i][j] = 0
+                                #sleep(2)
+        go_to_origin(x,y)
+        return True
