@@ -32,7 +32,7 @@ def d_move():
         global counter_left
         global counter_right
         old_leften = new_leften
-        old_leften = new_righten
+        old_righten = new_righten
         new_leften = gpio.input(leften)
         new_righten = gpio.input(righten)
         if ((new_leften == 1 and old_leften == 0) or (new_leften == 0 and old_leften == 1)):
