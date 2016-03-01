@@ -31,7 +31,7 @@ def linear_callibrate(reading, distance):
     else:
         print "no need for ultrasonic callibration, good work encoders"
 
-def angle_callibrate(reading_left, reading_back, distance):
+def angle_callibrate(read, distance):
     ultra_diff = 17.45
     #center more than linear to incorporate the tires and ultra position
     center = 5
@@ -195,4 +195,4 @@ def callibrate(rows, columns, cx, cy, mapp):
             if found_obstacle==False:
                 distance = cx * 25
 
-    angle_callibrate(readings[1], readings[2], distance)
+    angle_callibrate(readings, distance)
