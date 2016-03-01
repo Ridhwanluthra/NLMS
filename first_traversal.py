@@ -7,7 +7,7 @@
 
 # take input of the start and the end point
 
-from bot_movement import *
+from first_bot_movement import *
 from time import sleep
 import file_handling as file_h
 #from click_picture import click_picture
