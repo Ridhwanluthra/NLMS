@@ -1,8 +1,8 @@
-#import bot_movement as bm
+from  bot_globals import bot
 from ultrasonic import ultra
 import RPi.GPIO as gpio
 from time import sleep
-from first_traversal import first_go_to_origin, first_look, first_find_path
+from first_traversal import first_look, first_find_path
 import file_handling as file_h
 
 pin1 = 7
@@ -50,8 +50,9 @@ def rest():
         #if needed
         sleep(10)
 
-def go_to_location(x, y):
-	file_h.getcoords()
+def go_to_location(digit):
+	
+	
 
 def correct_the_location():
         global pin1
@@ -62,14 +63,26 @@ def correct_the_location():
 
                 distance = ultra()
                 the_required_distance = 10
-                if distance <= the_required_distance-3:
+                the_required_distance_picture = 15
+                if distance <= the_required_distance_picture:
                         #have to create this function in bot_movement
-                        backward(distance - the_required_distance+3)
+                        backward(the_required_distance_picture - distance)
                 else:
                         #have to create this function in bot_movement
-                        forward(distance - the_required_distance+3)
+                        forward(distance - the_required_distance_picture)
+                        
+                digit = click_picture()
+                distance = ultra()
+                
+                if distance <= the_required_distance:
+                        #have to create this function in bot_movement
+                        backward(the_required_distance - distance)
+                else:
+                        #have to create this function in bot_movement
+                        forward(distance - the_required_distance)
+
 		pick_the_block()
-		go_to_location()
+		go_to_location(digit)
 		drop_the_block()
 		rest()
 		"""                
