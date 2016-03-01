@@ -3,8 +3,9 @@
 #from sys import argv
 from traversal import mapping
 from first_traversal import first_mapping
+from anomaly import correct_the_location, rest
 #from edging import edging
-
+rest()
 #image_matrix = edging(argv[1]) # convert the picture into edges and return the sub_matrix
 x=0
 y=0
@@ -19,5 +20,5 @@ while True:
 	if mapping(x, y, image_matrix) == True:
                 continue
         else:
-                #handle the anomaly and then
+                correct_the_location()
                 continue

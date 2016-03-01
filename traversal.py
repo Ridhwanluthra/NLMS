@@ -161,7 +161,6 @@ i can go and take pictures of each obstacle
 # x and y being the current position of the bot
 def mapping(inx, iny, maps):
 	global mapp
-	
 	mapp = maps
 	rows = len(mapp)
         columns = len(mapp[0])
