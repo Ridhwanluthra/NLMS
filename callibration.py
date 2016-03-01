@@ -20,7 +20,7 @@ from math import asin, degrees, sqrt, pow
 def linear_callibrate(reading, distance):
     # center is actually extra spacing on the sides
     center = 4
-    error = 2
+    error = 1
 
     distance = distance + center
     
@@ -30,12 +30,13 @@ def linear_callibrate(reading, distance):
         bm.move_backward(distance - reading)
     else:
         print "no need for ultrasonic callibration, good work encoders"
+    sleep(1)
 
 def angle_callibrate(read, distance):
     ultra_diff = 12.7
     #center more than linear to incorporate the tires and ultra position
-    center = 9
-    distance_error = 4
+    center = 8
+    distance_error = 2
     angle_error = 1
 
     distance = distance + center

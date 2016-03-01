@@ -89,6 +89,7 @@ def callibration_ultra():
                 pulse_duration = pulse_end - pulse_start
                 d_forward = pulse_duration*17150
                 d_forward = round(d_forward, 2)
+		print d_forward
                 print "forward done"
                 
                 #taking left distance
@@ -125,7 +126,7 @@ def callibration_ultra():
 
                 pulse_duration = pulse_end - pulse_start
                 d_back = pulse_duration*17150
-                d_back = round(d_back, 2)
+                d_back = round(d_back, 2) - 1
 		print d_back
                 print "back taken"
                 

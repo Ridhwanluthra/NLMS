@@ -18,7 +18,7 @@ import RPi.GPIO as gpio
 from time import sleep
 import file_handling as file_h
 import bot_movement as bm
-from callibration import callibrate
+import callibration as c
 from click_picture import clicked
 
 pin1 = 7
@@ -68,7 +68,7 @@ def anomaly_find_path(cx, cy):
 			if (mapp[cx-1][cy] == 3 or mapp[cx-1][cy] == 5):
 				bm.up()
 				cx -= 1
-				callibrate(rows, columns, cx, cy, mapp)
+				c.callibrate(rows, columns, cx, cy, mapp)
 				if mapp[cx][cy] == 5:
                                     mapp[cx][cy] = 0
 				    print "up"
@@ -81,7 +81,7 @@ def anomaly_find_path(cx, cy):
 			if (mapp[cx+1][cy] == 3 or mapp[cx+1][cy] == 5):
 				bm.down()
 				cx += 1
-				callibrate(rows, columns, cx, cy, mapp)
+				c.callibrate(rows, columns, cx, cy, mapp)
 				if mapp[cx][cy] == 5:
                                     mapp[cx][cy] = 0
 				    print "down"
@@ -94,7 +94,7 @@ def anomaly_find_path(cx, cy):
 			if (mapp[cx][cy+1] == 3 or mapp[cx][cy+1] == 5):
 				bm.right()
 				cy += 1
-				callibrate(rows, columns, cx, cy, mapp)
+				c.callibrate(rows, columns, cx, cy, mapp)
 				if mapp[cx][cy] == 5:
                                     mapp[cx][cy] = 0
 				    print "right"
@@ -107,7 +107,7 @@ def anomaly_find_path(cx, cy):
 			if (mapp[cx][cy-1] == 3 or mapp[cx][cy-1] == 5):
 				bm.left()
 				cy -= 1
-				callibrate(rows, columns, cx, cy, mapp)
+				c.callibrate(rows, columns, cx, cy, mapp)
 				if mapp[cx][cy] == 5:
                                     mapp[cx][cy] = 0
 				    print "left"

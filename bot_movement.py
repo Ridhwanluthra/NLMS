@@ -63,6 +63,7 @@ try:
 
     def turn_left(degrees):
         distance = degrees * 0.1876
+	print "in turn left"
         while encoders.d_move()[0] < distance and encoders.d_move()[1] < distance:
             ml.backward(0.555)
             mr.forward(0.5)
@@ -71,7 +72,7 @@ try:
         sleep(1)
 
     def turn_right(degrees):
-        distance = (degrees+1) * 0.1876
+        distance = (degrees) * 0.1876
         while encoders.d_move()[0] < distance and encoders.d_move()[1] < distance:
             ml.forward(0.6)
             mr.backward(0.5)
