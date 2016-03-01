@@ -14,33 +14,28 @@ the bot can make only 90 degree turns
 """
 
 lm = 20
-rm = 14.6
+rm = 12.6
 
 direction = 'n' # n,e,w,s for different locations that it is facing
-usfront = 20
 
 try:
-	# ADD SOMETHING TO DO WHEN US IS LESS THAN 5;
     def forward():
-    	if usfront <= 5:
-            print "error"
-    	else:
-            ml.forward(0.553)
-            mr.forward(0.5)
+	ml.forward(0.553)
+        mr.forward(0.5)
 
     def sstop():
         ml.stop()
         mr.stop()
         
     def turn_left():
-        while d_move()[0] < rm-2 and d_move()[1] < rm-2:
+        while d_move()[0] < rm and d_move()[1] < rm:
             ml.backward(0.555)
             mr.forward(0.5)
         sstop()
         refresh()
 
     def turn_right():
-        while d_move()[0] < rm-2 and d_move()[1] < rm-2:
+        while d_move()[0] < rm and d_move()[1] < rm:
             ml.forward(0.555)
             mr.backward(0.5)
         sstop()
