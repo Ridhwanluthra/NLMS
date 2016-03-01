@@ -33,17 +33,17 @@ is facing upwards at 0,0
 the bot can make only 90 degree turns
 """
 
-lm = 20
+lm = 32
 rm = 90
 
 try:
     def forward():
-        ml.forward(0.553)
-        mr.forward(0.5)
+        ml.forward(0.3)
+        mr.forward(0.3)
 
     def backward():
-        ml.backward(0.553)
-        mr.backward(0.5)
+        ml.backward(0.3)
+        mr.backward(0.3)
         
     def sstop():
         ml.stop()
@@ -62,27 +62,27 @@ try:
         encoders.refresh()
 
     def turn_left(degrees):
-        distance = degrees * 0.1876
+        distance = (degrees + 3) * 0.1876
 	print "in turn left"
         while encoders.d_move()[0] < distance and encoders.d_move()[1] < distance:
-            ml.backward(0.555)
-            mr.forward(0.5)
+            ml.backward(0.3)
+            mr.forward(0.3)
         sstop()
         encoders.refresh()
         sleep(1)
 
     def turn_right(degrees):
-        distance = (degrees) * 0.1876
+        distance = (degrees + 4) * 0.1876
         while encoders.d_move()[0] < distance and encoders.d_move()[1] < distance:
-            ml.forward(0.6)
-            mr.backward(0.5)
+            ml.forward(0.3)
+            mr.backward(0.3)
         sstop()
         encoders.refresh()
         sleep(1)
         
     def soft_right():
         while encoders.d_move()[0] < 15:
-            ml.forward(0.555)
+            ml.forward(0.33)
             mr.stop()
         sstop()
         encoders.refresh()
@@ -102,6 +102,7 @@ try:
             forward()
         sstop()
         encoders.refresh()
+	sleep(1)
 
     def first_left():
         look_left()
@@ -109,6 +110,7 @@ try:
             forward()
         sstop()
         encoders.refresh()
+	sleep(1)
 
     def first_right():
         look_right()
@@ -116,6 +118,7 @@ try:
             forward()
         sstop()
         encoders.refresh()
+	sleep(1)
 
     def first_down():
         look_down()
@@ -123,6 +126,7 @@ try:
             forward()
         sstop()
         encoders.refresh()
+	sleep(1)
 
     def up():
         look_up()

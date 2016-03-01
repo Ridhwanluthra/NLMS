@@ -18,6 +18,7 @@ from time import sleep
 import file_handling as file_h
 from callibration import callibrate
 from click_picture import clicked
+import ultrasonic
 
 mapp = [[]]
 
@@ -84,11 +85,11 @@ def first_find_path(cx, cy):
 	while True:
 		if cx-1 >= 0:
 			if (mapp[cx-1][cy] == 3 or mapp[cx-1][cy] == 5):
-				bm.up()
+				bm.first_up()
 				cx -= 1
 				# callibrate function is used by the bot to self callibrate its location
 				# so that if the encoders go wrong this function will correct it
-				callibrate(rows, columns, cx, cy, mapp)
+				#callibrate(rows, columns, cx, cy, mapp)
 				if mapp[cx][cy] == 5:
                                     mapp[cx][cy] = 0
 				    print "up"
@@ -99,11 +100,11 @@ def first_find_path(cx, cy):
                                     continue
 		if cx+1 < rows:
 			if (mapp[cx+1][cy] == 3 or mapp[cx+1][cy] == 5):
-				bm.down()
+				bm.first_down()
 				cx += 1
 				# callibrate function is used by the bot to self callibrate its location
 				# so that if the encoders go wrong this function will correct it
-				callibrate(rows, columns, cx, cy, mapp)
+				#callibrate(rows, columns, cx, cy, mapp)
 				if mapp[cx][cy] == 5:
                                     mapp[cx][cy] = 0
 				    print "down"
@@ -114,11 +115,11 @@ def first_find_path(cx, cy):
                                     continue
 		if cy+1 < columns:
 			if (mapp[cx][cy+1] == 3 or mapp[cx][cy+1] == 5):
-				bm.right()
+				bm.first_right()
 				cy += 1
 				# callibrate function is used by the bot to self callibrate its location
 				# so that if the encoders go wrong this function will correct it
-				callibrate(rows, columns, cx, cy, mapp)
+				#callibrate(rows, columns, cx, cy, mapp)
 				if mapp[cx][cy] == 5:
                                     mapp[cx][cy] = 0
 				    print "right"
@@ -129,11 +130,11 @@ def first_find_path(cx, cy):
                                     continue
 		if cy-1 >=0:
 			if (mapp[cx][cy-1] == 3 or mapp[cx][cy-1] == 5):
-				bm.left()
+				bm.first_left()
 				cy -= 1
 				# callibrate function is used by the bot to self callibrate its location
 				# so that if the encoders go wrong this function will correct it
-				callibrate(rows, columns, cx, cy, mapp)
+				#callibrate(rows, columns, cx, cy, mapp)
 				if mapp[cx][cy] == 5:
                                     mapp[cx][cy] = 0
 				    print "left"
@@ -178,11 +179,12 @@ def first_mapping(maps):
 					sleep(2)
 					bot.x = i-1
 					bot.y = j
+					distance = ultrasonic.ultra()
 					if distance <= the_required_distance_picture:
-                                                bm.backward(the_required_distance_picture - distance)
+                                                bm.move_backward(the_required_distance_picture - distance)
                                         else:
-                                                bm.forward(distance - the_required_distance_picture)
-					digit = clicked(i, j)
+                                                bm.move_forward(distance - the_required_distance_picture)
+					digit = clicked()
 					file_h.write_in_file(digit, i, j)
 					
 					mapp[i-1][j] = 0
@@ -196,11 +198,12 @@ def first_mapping(maps):
 					sleep(2)
 					bot.x = i
 					bot.y = j+1
+					distance = ultrasonic.ultra()
 					if distance <= the_required_distance_picture:
-                                                bm.backward(the_required_distance_picture - distance)
+                                                bm.move_backward(the_required_distance_picture - distance)
                                         else:
-                                                bm.forward(distance - the_required_distance_picture)
-					digit = clicked(i, j)
+                                                bm.move_forward(distance - the_required_distance_picture)
+					digit = clicked()
 					file_h.write_in_file(digit, i, j)
 					
 					mapp[i][j+1] = 0
@@ -214,11 +217,12 @@ def first_mapping(maps):
 					sleep(2)
 					bot.x = i+1
 					bot.y = j
+					distance = ultrasonic.ultra()
 					if distance <= the_required_distance_picture:
-                                                bm.backward(the_required_distance_picture - distance)
+                                                bm.move_backward(the_required_distance_picture - distance)
                                         else:
-                                                bm.forward(distance - the_required_distance_picture)
-					digit = clicked(i, j)
+                                                bm.move_forward(distance - the_required_distance_picture)
+					digit = clicked()
 					file_h.write_in_file(digit, i, j)
 					
 					mapp[i+1][j] = 0
@@ -232,11 +236,12 @@ def first_mapping(maps):
 					sleep(2)
 					bot.x = i
 					bot.y = j-1
+					distance = ultrasonic.ultra()
 					if distance <= the_required_distance_picture:
-                                                bm.backward(the_required_distance_picture - distance)
+                                                bm.move_backward(the_required_distance_picture - distance)
                                         else:
-                                                bm.forward(distance - the_required_distance_picture)
-					digit = clicked(i, j)
+                                                bm.move_forward(distance - the_required_distance_picture)
+					digit = clicked()
 					file_h.write_in_file(digit, i, j)
 					
 					mapp[i][j-1] = 0
