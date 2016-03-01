@@ -2,8 +2,8 @@ from  bot_globals import bot
 from ultrasonic import ultra
 import RPi.GPIO as gpio
 from time import sleep
-from first_traversal import first_look, first_find_path
 import file_handling as file_h
+from first_bot_movement import look_left, look_right, look_up, look_down
 
 pin1 = 7
 pin2 = 8     
@@ -11,12 +11,93 @@ gpio.setmode(gpio.BCM)
 gpio.setup(pin1, gpio.OUT)
 gpio.setup(pin2, gpio.OUT)
 
+mapp = [[]]
 
 def check():
 	if ultra() <= 20:
 		return False
 	else:
 		return True
+
+def anomaly_look(cx, cy):
+	global mapp
+        rows = len(mapp)
+        columns = len(mapp[0])
+	if (not((cx < rows and cx >= 0) and (cy < columns and cy >= 0))):
+		return False
+	if (mapp[cx][cy]==5):
+		return True
+	if (mapp[cx][cy]!=0):
+		return False
+	mapp[cx][cy] = 3
+	if (anomaly_look(cx-1,cy) == True):
+		return True
+	if (anomaly_look(cx,cy+1) == True):
+		return True
+	if (anomaly_look(cx+1,cy) == True):
+		return True
+	if (anomaly_look(cx,cy-1) == True):
+		return True
+	mapp[cx][cy] = 0
+	return False
+
+def anomaly_find_path(cx, cy):
+	global mapp
+	print mapp
+	rows = len(mapp)
+        columns = len(mapp[0])
+	mapp[cx][cy] = 0
+	while True:
+		if cx-1 >= 0:
+			if (mapp[cx-1][cy] == 3 or mapp[cx-1][cy] == 5):
+				up()
+				cx -= 1
+				if mapp[cx][cy] == 5:
+                                    mapp[cx][cy] = 0
+				    print "up"
+                                    break
+                                else:
+                                    mapp[cx][cy] = 0
+                                    print "up"
+                                    continue
+		if cx+1 < rows:
+			if (mapp[cx+1][cy] == 3 or mapp[cx+1][cy] == 5):
+				down()
+				cx += 1
+				if mapp[cx][cy] == 5:
+                                    mapp[cx][cy] = 0
+				    print "down"
+                                    break
+                                else:
+                                    mapp[cx][cy] = 0
+                                    print "down"
+                                    continue
+		if cy+1 < columns:
+			if (mapp[cx][cy+1] == 3 or mapp[cx][cy+1] == 5):
+				right()
+				cy += 1
+				if mapp[cx][cy] == 5:
+                                    mapp[cx][cy] = 0
+				    print "right"
+                                    break
+                                else:
+                                    mapp[cx][cy] = 0
+                                    print "right"
+                                    continue
+		if cy-1 >=0:
+			if (mapp[cx][cy-1] == 3 or mapp[cx][cy-1] == 5):
+				left()
+				cy -= 1
+				if mapp[cx][cy] == 5:
+                                    mapp[cx][cy] = 0
+				    print "left"
+                                    break
+                                else:
+                                    mapp[cx][cy] = 0
+                                    print "left"
+                                    continue
+	else:
+		return "you have reached your destination" # put a different kind of result
 
 """
 now i will first chec the distance and then get to a certain distance
@@ -51,10 +132,39 @@ def rest():
         sleep(10)
 
 def go_to_location(digit):
-	
-	
+        global mapp
+        cx = getcoords(digit)[0]
+        cy = getcoords(digit)[1]
+        if cx-1 >= 0:
+                if mapp[cx-1][cy] == 0:
+                        anomaly_look(cx, cy)
+                        anomaly_find_path(cx, cy)
+                        look_down()
+                        
+        elif cx+1 < rows:
+                if mapp[cx+1][cy] == 0:
+                        anomaly_look(cx, cy)
+                        anomaly_find_path(cx, cy)
+                        look_up()
+                        
+        elif cy+1 < columns:
+                if mapp[cx][cy+1] == 0:
+                        anomaly_look(cx, cy)
+                        anomaly_find_path(cx, cy)
+                        look_left()
+                        
+        elif cy-1 >=0:
+                if mapp[cx][cy-1] == 0:
+                        anomaly_look(cx, cy)
+                        anomaly_find_path(cx, cy)
+                        look_right()
+                        
+	else:
+                print "there is no place from where i can place the block"
 
-def correct_the_location():
+def correct_the_location(image_matrix):
+        global mapp
+        mapp = image_matrix
         global pin1
         global pin2
         try:

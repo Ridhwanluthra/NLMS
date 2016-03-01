@@ -18,5 +18,5 @@ while True:
 	if mapping(image_matrix) == True:
                 continue
         else:
-                correct_the_location()
+                correct_the_location(image_matrix)
                 continue
