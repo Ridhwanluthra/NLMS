@@ -18,6 +18,7 @@ from bot_globals import bot
 from math import asin, degrees, sqrt, pow
 
 def linear_callibrate(reading, distance):
+    print "entered linear"
     # center is actually extra spacing on the sides
     center = 4
     error = 1
@@ -33,6 +34,7 @@ def linear_callibrate(reading, distance):
     sleep(1)
 
 def angle_callibrate(read, distance):
+    print "entered angle"
     ultra_diff = 12.7
     #center more than linear to incorporate the tires and ultra position
     center = 8
@@ -69,21 +71,34 @@ def angle_callibrate(read, distance):
         """
     #now correcting the angle
     while read[1] > read[2] + angle_error or read[1] < read[2] - angle_error:
+        print "entered while"
         if read[1] > read[2] + angle_error:
-        	difference = read[1] - read[2]
-        	degree = asin(difference / sqrt(pow(ultra_diff, 2)+pow(difference, 2)))
-    		degree = degrees(degree)
+            difference = read[1] - read[2]
+            degree = asin(difference / sqrt(pow(ultra_diff, 2)+pow(difference, 2)))
+            degree = degrees(degree)
             if degree > 4:
-	            bm.turn_left(degree - 4)
-	            read = callibration_ultra()
-            
+                print "degree greater"
+                bm.turn_left(degree - 4)
+                read = callibration_ultra()
+            else:
+                print "degree less"
+                bm.turn_left(degree)
+                read = callibration_ultra()
+                
         elif read[1] < read[2] - angle_error:
-        	difference = read[2] - read[1]
-        	degree = asin(difference / sqrt(pow(ultra_diff, 2)+pow(difference, 2)))
-    		degree = degrees(degree)
-    		if degree > 4:
-	            bm.turn_right(degree - 4)
-	            read = callibration_ultra()
+            difference = read[2] - read[1]
+            degree = asin(difference / sqrt(pow(ultra_diff, 2)+pow(difference, 2)))
+            degree = degrees(degree)
+            if degree > 4:
+                print "degree greater"
+                bm.turn_right(degree - 4)
+                print "turned right"
+                read = callibration_ultra()
+            else:
+                print "degree less"
+                bm.turn_right(degree)
+                read = callibration_ultra()
+    print "exited while"
 
 def callibrate(rows, columns, cx, cy, mapp):
     # [0] = move_forward, [1] = left, [2] = back

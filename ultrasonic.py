@@ -91,7 +91,7 @@ def callibration_ultra():
                 d_forward = round(d_forward, 2)
 		print d_forward
                 print "forward done"
-                
+                time.sleep(2)
                 #taking left distance
                 gpio.output(trig_left, False)
                 time.sleep(1)
@@ -110,7 +110,7 @@ def callibration_ultra():
                 d_left = round(d_left, 2)
 		print d_left
                 print "left done"
-
+		time.sleep(2)
                 #taking back distance
                 gpio.output(trig_back, False)
                 time.sleep(1)
