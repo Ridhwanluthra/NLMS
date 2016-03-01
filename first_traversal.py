@@ -52,11 +52,11 @@ def first_look(cx, cy):
 	mapp[cx][cy] = 3
 	if (first_look(cx-1,cy) == True):
 		return True
-	if (first_look(cx,cy+1) == True):
+	if (first_look(cx,cy-1) == True):
 		return True
 	if (first_look(cx+1,cy) == True):
 		return True
-	if (first_look(cx,cy-1) == True):
+	if (first_look(cx,cy+1) == True):
 		return True
 	mapp[cx][cy] = 0
 	return False
@@ -89,7 +89,7 @@ def first_find_path(cx, cy):
 				cx -= 1
 				# callibrate function is used by the bot to self callibrate its location
 				# so that if the encoders go wrong this function will correct it
-				linear_callibrate(rows, columns, cx, cy, mapp)
+				#linear_callibrate(rows, columns, cx, cy, mapp)
 				if mapp[cx][cy] == 5:
                                     mapp[cx][cy] = 0
 				    print "up"
@@ -104,7 +104,7 @@ def first_find_path(cx, cy):
 				cx += 1
 				# callibrate function is used by the bot to self callibrate its location
 				# so that if the encoders go wrong this function will correct it
-				linear_callibrate(rows, columns, cx, cy, mapp)
+				#linear_callibrate(rows, columns, cx, cy, mapp)
 				if mapp[cx][cy] == 5:
                                     mapp[cx][cy] = 0
 				    print "down"
@@ -119,7 +119,7 @@ def first_find_path(cx, cy):
 				cy += 1
 				# callibrate function is used by the bot to self callibrate its location
 				# so that if the encoders go wrong this function will correct it
-				linear_callibrate(rows, columns, cx, cy, mapp)
+				#linear_callibrate(rows, columns, cx, cy, mapp)
 				if mapp[cx][cy] == 5:
                                     mapp[cx][cy] = 0
 				    print "right"
@@ -134,7 +134,7 @@ def first_find_path(cx, cy):
 				cy -= 1
 				# callibrate function is used by the bot to self callibrate its location
 				# so that if the encoders go wrong this function will correct it
-				linear_callibrate(rows, columns, cx, cy, mapp)
+				#linear_callibrate(rows, columns, cx, cy, mapp)
 				if mapp[cx][cy] == 5:
                                     mapp[cx][cy] = 0
 				    print "left"

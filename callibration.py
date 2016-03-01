@@ -11,7 +11,7 @@
 * Global Variables:	NONE
 *
 """
-from ultrasonic import callibration_ultra
+from ultrasonic import callibration_ultra, ultra
 from time import sleep
 import bot_movement as bm
 from bot_globals import bot

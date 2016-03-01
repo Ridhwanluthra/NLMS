@@ -23,7 +23,7 @@ from anomaly import correct_the_location, rest
 # now i have the completed map of the room ready
 
 # add the ultrasonic sensors to find and save from obstacles.
-image_matrix = [[0,0,1,0,0],[0,0,0,0,0],[0,1,0,0,1],[1,0,0,1,0],[0,0,0,0,1],[0,1,0,0,0]]
+image_matrix = [[0,1,0,0],[0,0,0,0],[0,1,0,0],[0,0,0,1]]
 
 first_mapping(image_matrix)
 
