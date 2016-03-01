@@ -1,8 +1,9 @@
-import bot_movement as bm
+#import bot_movement as bm
 from ultrasonic import ultra
 import RPi.GPIO as gpio
 from time import sleep
-#from traversal import go_to_origin
+from first_traversal import first_go_to_origin, first_look, first_find_path
+import file_handling as file_h
 
 pin1 = 7
 pin2 = 8     
@@ -49,6 +50,9 @@ def rest():
         #if needed
         sleep(10)
 
+def go_to_location(x, y):
+	file_h.getcoords()
+
 def correct_the_location():
         global pin1
         global pin2
@@ -65,7 +69,7 @@ def correct_the_location():
                         #have to create this function in bot_movement
                         forward(distance - the_required_distance+3)
 		pick_the_block()
-		#add going to the correct location first
+		go_to_location()
 		drop_the_block()
 		rest()
 		"""                
