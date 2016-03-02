@@ -26,9 +26,11 @@ def clicked():
         direc='img.jpg'
         text_dir='img_digit.txt'
         camera=picamera.PiCamera()
-        camera.contrast=40
+        camera.vflip=True
+        camera.hflip=True
+        '''     camera.contrast=40
         camera.brightness=40
-        camera.saturation=30
+        camera.saturation=30 '''
         camera.resolution=(300,200)
 	from time import sleep
         camera.capture(direc)
@@ -41,7 +43,7 @@ def clicked():
         img=cv2.medianBlur(img, 9)
         # find all the 'black' shapes in the image
         lower = np.array([0, 0, 0])
-        upper = np.array([90, 90, 90])
+        upper = np.array([60, 60, 60])
         shapeMask = cv2.inRange(img, lower, upper)
         # find the contours in the mask
         (contours, _) = cv2.findContours(shapeMask.copy(), cv2.RETR_EXTERNAL,
