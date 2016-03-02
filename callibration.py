@@ -2,7 +2,7 @@ from ultrasonic import callibration_ultra
 from time import sleep
 from first_bot_movement import move_forward, move_backward, turn_left, turn_right
 from bot_globals import bot
-from math import asin, degrees
+from math import asin, degrees, sqrt, pow
 
 def linear_callibrate(reading, distance):
     # center is actually extra spacing on the sides
@@ -30,7 +30,7 @@ def angle_callibrate(reading_left, reading_back, distance):
     average_reading = (reading_left + reading_back)/2
 
     difference = reading_back - reading_left
-    degree = asin(difference/ultra_diff)
+    degree = asin(difference / sqrt(pow(ultra_diff, 2)+pow(difference, 2)))
     degree = degrees(degree)
 
     #correcting the distance from left
