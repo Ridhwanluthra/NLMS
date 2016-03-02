@@ -19,7 +19,7 @@ def linear_callibrate(reading, distance):
         print "no need for ultrasonic callibration, good work encoders"
 
 def angle_callibrate(reading_left, reading_back, distance):
-    ultra_diff = 10 # HAVE TO PUT CORRECT
+    ultra_diff = 17.45
     #center more than linear to incorporate the tires and ultra position
     center = 5
     distance_error = 4
