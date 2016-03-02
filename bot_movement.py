@@ -1,9 +1,9 @@
 from gpiozero import Motor
 #from gpiozero.Pin import
 #import RPi.GPIO as GPIO
-from encoders
+import encoders
 from ultrasonic import ultra
-from anomaly
+import anomaly
 from bot_globals import bot
 
 mr = Motor(3, 2)

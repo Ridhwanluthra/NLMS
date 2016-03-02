@@ -70,8 +70,11 @@ def find_path(cx, cy):
 	print mapp
 	rows = len(mapp)
         columns = len(mapp[0])
-	mapp[cx][cy] = 0
-	while (mapp[cx][cy] != 5):
+	if mapp[cx][cy] == 5:
+		return True
+	else:
+		mapp[cx][cy] = 0
+	while True:
 		if cx-1 >= 0:
 			if (mapp[cx-1][cy] == 3 or mapp[cx-1][cy] == 5):
 				if bm.up() == True:
@@ -171,7 +174,6 @@ def mapping(maps):
 	for i in range(rows):
 		for j in range(columns):
 			if (mapp[i][j] != 1):
-                                global mapp
                                 mapp[i][j] = 5;
                                 look(bot.x,bot.y)
                                 if find_path(bot.x,bot.y) == False:

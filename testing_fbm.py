@@ -1,4 +1,4 @@
-import bot_movement as fbm
+import bot_movement as bm
 import time as tm
 
-fbm.first_up()
+bm.first_up()
