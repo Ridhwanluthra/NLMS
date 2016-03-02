@@ -60,7 +60,7 @@ def callibration_ultra():
                 gpio.output(trig_left, False)
                 gpio.output(trig_back, False)
 
-                time.sleep(1)
+                time.sleep(2)
 
                 #taking forward distance
                 gpio.output(trig_forward, True)
@@ -115,7 +115,7 @@ def callibration_ultra():
                 print "back taken"
                 
                 return [d_forward, d_left, d_back]
-        except:
+        except KeyboardInterrupt:
                 print "reading was interrupted"
         finally:
                 gpio.cleanup(trig_forward)
