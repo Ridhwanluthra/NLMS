@@ -3,7 +3,7 @@ from ultrasonic import ultra
 import RPi.GPIO as gpio
 from time import sleep
 import file_handling as file_h
-from first_bot_movement import look_left, look_right, look_up, look_down
+from first_bot_movement import look_left, look_right, look_up, look_down, forward, backward
 
 pin1 = 7
 pin2 = 8     
@@ -52,6 +52,7 @@ def anomaly_find_path(cx, cy):
 			if (mapp[cx-1][cy] == 3 or mapp[cx-1][cy] == 5):
 				up()
 				cx -= 1
+				callibrate(rows, columns, cx, cy, mapp)
 				if mapp[cx][cy] == 5:
                                     mapp[cx][cy] = 0
 				    print "up"
@@ -64,6 +65,7 @@ def anomaly_find_path(cx, cy):
 			if (mapp[cx+1][cy] == 3 or mapp[cx+1][cy] == 5):
 				down()
 				cx += 1
+				callibrate(rows, columns, cx, cy, mapp)
 				if mapp[cx][cy] == 5:
                                     mapp[cx][cy] = 0
 				    print "down"
@@ -76,6 +78,7 @@ def anomaly_find_path(cx, cy):
 			if (mapp[cx][cy+1] == 3 or mapp[cx][cy+1] == 5):
 				right()
 				cy += 1
+				callibrate(rows, columns, cx, cy, mapp)
 				if mapp[cx][cy] == 5:
                                     mapp[cx][cy] = 0
 				    print "right"
@@ -88,6 +91,7 @@ def anomaly_find_path(cx, cy):
 			if (mapp[cx][cy-1] == 3 or mapp[cx][cy-1] == 5):
 				left()
 				cy -= 1
+				callibrate(rows, columns, cx, cy, mapp)
 				if mapp[cx][cy] == 5:
                                     mapp[cx][cy] = 0
 				    print "left"
@@ -175,10 +179,8 @@ def correct_the_location(image_matrix):
                 the_required_distance = 10
                 the_required_distance_picture = 15
                 if distance <= the_required_distance_picture:
-                        #have to create this function in bot_movement
                         backward(the_required_distance_picture - distance)
                 else:
-                        #have to create this function in bot_movement
                         forward(distance - the_required_distance_picture)
                         
                 digit = click_picture()

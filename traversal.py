@@ -75,6 +75,7 @@ def find_path(cx, cy):
 			if (mapp[cx-1][cy] == 3 or mapp[cx-1][cy] == 5):
 				if up() == True:
                                         cx -= 1
+                                        callibrate(rows, columns, cx, cy, mapp)
                                         if mapp[cx][cy] == 5:
                                             mapp[cx][cy] = 0
                                             print "up"
@@ -90,6 +91,7 @@ def find_path(cx, cy):
 			if (mapp[cx+1][cy] == 3 or mapp[cx+1][cy] == 5):
 				if down() == True:
                                         cx += 1
+                                        callibrate(rows, columns, cx, cy, mapp)
                                         if mapp[cx][cy] == 5:
                                             mapp[cx][cy] = 0
                                             print "down"
@@ -105,6 +107,7 @@ def find_path(cx, cy):
 			if (mapp[cx][cy+1] == 3 or mapp[cx][cy+1] == 5):
 				if right() == True:
                                         cy += 1
+                                        callibrate(rows, columns, cx, cy, mapp)
                                         if mapp[cx][cy] == 5:
                                             mapp[cx][cy] = 0
                                             print "right"
@@ -120,6 +123,7 @@ def find_path(cx, cy):
 			if (mapp[cx][cy-1] == 3 or mapp[cx][cy-1] == 5):
 				if left() == True:
                                         cy -= 1
+                                        callibrate(rows, columns, cx, cy, mapp)
                                         if mapp[cx][cy] == 5:
                                             mapp[cx][cy] = 0
                                             print "left"

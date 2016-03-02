@@ -4,6 +4,7 @@ from gpiozero import Motor
 from encoders import d_move, refresh
 from ultrasonic import ultra
 from anomaly import check
+from bot_globals import bot
 
 mr = Motor(2, 3)
 ml = Motor(14, 15)
@@ -17,8 +18,6 @@ the bot can make only 90 degree turns
 
 lm = 20
 rm = 14.6
-
-direction = 'n' # n,e,w,s for different locations that it is facing
 
 try:
     def forward():
@@ -102,72 +101,68 @@ try:
 	    	return False
 
     def look_up():
-        global direction
-        if (direction == 'n'):
+        if (bot.direction == 'n'):
             pass
-        elif (direction == 'e'):
+        elif (bot.direction == 'e'):
             turn_left()
             #soft_left()
-        elif (direction == 'w'):
+        elif (bot.direction == 'w'):
             turn_right()
             #soft_right()
-        elif (direction == 's'):
+        elif (bot.direction == 's'):
             turn_left()
 	    turn_left()
             #soft_left()
             #soft_left()
-        direction = 'n'
+        bot.direction = 'n'
 
     def look_down():
-        global direction
-        if (direction == 'n'):
+        if (bot.direction == 'n'):
             turn_left()
             turn_left()
             #soft_left()
             #soft_left()
-        elif (direction == 'e'):
+        elif (bot.direction == 'e'):
             turn_right()
             #soft_right()
-        elif (direction == 'w'):
+        elif (bot.direction == 'w'):
             turn_left()
             #soft_left()
-        elif (direction == 's'):
+        elif (bot.direction == 's'):
             pass
-        direction = 's'
+        bot.direction = 's'
 
     def look_left():
-        global direction
-        if (direction == 'n'):
+        if (bot.direction == 'n'):
             turn_left()
             #soft_left()
-        elif (direction == 'e'):
+        elif (bot.direction == 'e'):
             turn_left()
             turn_left()
             #soft_left()
             #soft_left()
-        elif (direction == 'w'):
+        elif (bot.direction == 'w'):
             pass
-        elif (direction == 's'):
+        elif (bot.direction == 's'):
             turn_right()
             #soft_right()
-        direction = 'w'
+        bot.direction = 'w'
 
     def look_right():
-        global direction
-        if (direction == 'n'):
+        if (bot.direction == 'n'):
             turn_right()
             #soft_right()
-        elif (direction == 'e'):
+        elif (bot.direction == 'e'):
             pass
-        elif (direction == 'w'):
+        elif (bot.direction == 'w'):
             turn_left()
             turn_left()
             #soft_left()
             #soft_left()
-        elif (direction == 's'):
+        elif (bot.direction == 's'):
             turn_left()
             #soft_left()
-        direction = 'e'
+        bot.direction = 'e'
 except KeyboardInterrupt:
     print "cleaning"
 finally:

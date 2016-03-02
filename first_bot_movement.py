@@ -2,6 +2,7 @@ from gpiozero import Motor
 #from gpiozero.Pin import
 #import RPi.GPIO as GPIO
 from encoders import d_move, refresh
+from bot_globals import bot
 
 mr = Motor(2, 3)
 ml = Motor(14, 15)
@@ -16,16 +17,30 @@ the bot can make only 90 degree turns
 lm = 20
 rm = 12.6
 
-direction = 'n' # n,e,w,s for different locations that it is facing
-
 try:
     def forward():
 	ml.forward(0.553)
         mr.forward(0.5)
+        
+    def backward():
+        ml.backward(0.553)
+        mr.backward(0.5)
 
     def sstop():
         ml.stop()
         mr.stop()
+
+    def forward(distance):
+        while d_move()[0] <= distance and d_move()[1] <= distance:
+            forward()
+        sstop()
+        refresh()
+
+    def backward(distance):
+        while d_move()[0] <= distance and d_move()[1] <= distance:
+            backward()
+        sstop()
+        refresh()
         
     def turn_left():
         while d_move()[0] < rm and d_move()[1] < rm:
@@ -34,8 +49,24 @@ try:
         sstop()
         refresh()
 
+    def turn_left(degrees):
+        distance = degrees * 0.1876
+        while d_move()[0] < distance and d_move()[1] < distance:
+            ml.backward(0.555)
+            mr.forward(0.5)
+        sstop()
+        refresh()
+
     def turn_right():
         while d_move()[0] < rm and d_move()[1] < rm:
+            ml.forward(0.555)
+            mr.backward(0.5)
+        sstop()
+        refresh()
+
+    def turn_right(degrees):
+        distance = degrees * 0.1876
+        while d_move()[0] < distance and d_move()[1] < distance:
             ml.forward(0.555)
             mr.backward(0.5)
         sstop()
@@ -84,72 +115,68 @@ try:
         refresh()
 
     def look_up():
-        global direction
-        if (direction == 'n'):
+        if (bot.direction == 'n'):
             pass
-        elif (direction == 'e'):
+        elif (bot.direction == 'e'):
             turn_left()
             #soft_left()
-        elif (direction == 'w'):
+        elif (bot.direction == 'w'):
             turn_right()
             #soft_right()
-        elif (direction == 's'):
+        elif (bot.direction == 's'):
             turn_left()
 	    turn_left()
             #soft_left()
             #soft_left()
-        direction = 'n'
+        bot.direction = 'n'
 
     def look_down():
-        global direction
-        if (direction == 'n'):
+        if (bot.direction == 'n'):
             turn_left()
             turn_left()
             #soft_left()
             #soft_left()
-        elif (direction == 'e'):
+        elif (bot.direction == 'e'):
             turn_right()
             #soft_right()
-        elif (direction == 'w'):
+        elif (bot.direction == 'w'):
             turn_left()
             #soft_left()
-        elif (direction == 's'):
+        elif (bot.direction == 's'):
             pass
-        direction = 's'
+        bot.direction = 's'
 
     def look_left():
-        global direction
-        if (direction == 'n'):
+        if (bot.direction == 'n'):
             turn_left()
             #soft_left()
-        elif (direction == 'e'):
+        elif (bot.direction == 'e'):
             turn_left()
             turn_left()
             #soft_left()
             #soft_left()
-        elif (direction == 'w'):
+        elif (bot.direction == 'w'):
             pass
-        elif (direction == 's'):
+        elif (bot.direction == 's'):
             turn_right()
             #soft_right()
-        direction = 'w'
+        bot.direction = 'w'
 
     def look_right():
-        global direction
-        if (direction == 'n'):
+        if (bot.direction == 'n'):
             turn_right()
             #soft_right()
-        elif (direction == 'e'):
+        elif (bot.direction == 'e'):
             pass
-        elif (direction == 'w'):
+        elif (bot.direction == 'w'):
             turn_left()
             turn_left()
             #soft_left()
             #soft_left()
-        elif (direction == 's'):
+        elif (bot.direction == 's'):
             turn_left()
             #soft_left()
-        direction = 'e'
+        bot.direction = 'e'
 except KeyboardInterrupt:
     print "cleaning"
 finally:
