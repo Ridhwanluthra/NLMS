@@ -5,6 +5,7 @@ from bot_globals import bot
 from math import asin, degrees
 
 def linear_callibrate(reading, distance):
+    # center is actually extra spacing on the sides
     center = 3
     error = 2
 
@@ -33,7 +34,7 @@ def angle_callibrate(reading_left, reading_back, distance):
     degree = degrees(degree)
 
     #correcting the distance from left
-    if average_reading < distance - error:
+    if average_reading < distance - distance_error:
         # can add the below commented if angle correction wanted before
         """if reading_left > reading_back + angle_error:
             turn_left(degree)
@@ -43,7 +44,7 @@ def angle_callibrate(reading_left, reading_back, distance):
         move_forward(distance - average_reading)
         turn_left()
             
-    elif average_reading > distance + error:
+    elif average_reading > distance + distance_error:
         # can add the below commented if angle correction wanted before
         """if reading_left > reading_back + angle_error:
             turn_left(degree)
@@ -69,37 +70,50 @@ def callibrate(rows, columns, cx, cy, mapp):
         if cx == 0:
             distance = 0
         else:
+            found_obstacle = False
             for i in range(1, cx):
                 if mapp[i][cy] == 1:
+                    found_obstacle = True
                     distance = (cx - i - 1) * 25
-            distance = cx * 25
+                    break
+            if found_obstacle==False:
+                distance = cx * 25
         
     elif bot.direction == 's':
         if cx == rows:
             distance = 0
         else:
+            found_obstacle = False
             for i in range(cx, rows):
                 if mapp[i][cy] == 1:
                     distance = (i - cx - 1) * 25
-            distance = (rows - cx - 1) * 25
+                    break
+            if found_obstacle==False:
+                distance = (rows - cx - 1) * 25
         
     elif bot.direction == 'w':
         if cy == 0:
             distance = 0
         else:
+            found_obstacle = False
             for i in range(1, cy):
                 if mapp[cx][i] == 1:
                     distance = (cy - i - 1) * 25
-            distance = cy * 25
+                    break
+            if found_obstacle==False:
+                distance = cy * 25
 
     elif bot.direction == 'e':
         if cy == columns:
             distance = 0
         else:
+            found_obstacle = False
             for i in range(cy, columns):
                 if mapp[cx][i] == 1:
                     distance = (i - cy - 1) * 25
-            distance = (columns - cy - 1) * 25
+                    break
+            if found_obstacle==False:
+                distance = (columns - cy - 1) * 25
     
     linear_callibrate(readings[0], distance)
 
@@ -108,36 +122,48 @@ def callibrate(rows, columns, cx, cy, mapp):
         if cy == 0:
             distance = 0
         else:
+            found_obstacle = False
             for i in range(1, cy):
                 if mapp[cx][i] == 1:
                     distance = (cy - i - 1) * 25
-            distance = cy * 25
+                    break
+            if found_obstacle==False:
+                distance = cy * 25
         
     elif bot.direction == 's':
         if cy == columns:
             distance = 0
         else:
+            found_obstacle = False
             for i in range(cy, columns):
                 if mapp[cx][i] == 1:
                     distance = (i - cy - 1) * 25
-            distance = (columns - cy - 1) * 25
+                    break
+            if found_obstacle==False:
+                distance = (columns - cy - 1) * 25
         
     elif bot.direction == 'w':
         if cx == rows:
             distance = 0
         else:
+            found_obstacle = False
             for i in range(cx, rows):
                 if mapp[i][cy] == 1:
                     distance = (i - cx - 1) * 25
-            distance = (rows - cx - 1) * 25
+                    break
+            if found_obstacle==False:
+                distance = (rows - cx - 1) * 25
 
     elif bot.direction == 'e':
         if cx == 0:
             distance = 0
         else:
+            found_obstacle = False
             for i in range(1, cx):
                 if mapp[i][cy] == 1:
                     distance = (cx - i - 1) * 25
-            distance = cx * 25
+                    break
+            if found_obstacle==False:
+                distance = cx * 25
 
     angle_callibrate(readings[1], readings[2], distance)
