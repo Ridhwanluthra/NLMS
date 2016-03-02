@@ -1,12 +1,19 @@
 # import the necessary packages
 import numpy as np
 import cv2
+import picamera
  
 # construct the argument parse and parse the arguments
 # load the image
 
+m=8
+n=8
+inputArray=[]
 
 def countArray(i, j):
+        global m
+	global n
+	global inputArray
         counter=0
         for row in range(i, i+m):
                 for column in range(j, j+n):
@@ -23,8 +30,9 @@ def clicked():
         camera.brightness=40
         camera.saturation=30
         camera.resolution=(300,200)
+	from time import sleep
         camera.capture(direc)
-
+	sleep(1)
             #analysis of image
         # load the image
         image = cv2.imread(direc)
@@ -54,11 +62,11 @@ def clicked():
         shapeMask = cv2.inRange(img, lower, upper)
 
         # find all the 'black' shapes in the image
+	global m
+	global n
+	global inputArray
         k=35
-        m=8
-        n=8
         c=[]
-        inputArray=[]
         s01_=shapeMask.shape[0]
         s02_=shapeMask.shape[1]
         #populating input array with random numbers 0 and 255 for testing purposes
