@@ -6,8 +6,8 @@ from ultrasonic import ultra
 from anomaly import check
 from bot_globals import bot
 
-mr = Motor(2, 3)
-ml = Motor(14, 15)
+mr = Motor(3, 2)
+ml = Motor(15, 14)
 ml.stop()
 mr.stop()
 """
@@ -53,9 +53,9 @@ try:
         refresh()
 
     def turn_right(degrees):
-        distance = degrees * 0.1876
+        distance = (degrees+1) * 0.1876
         while d_move()[0] < distance and d_move()[1] < distance:
-            ml.forward(0.555)
+            ml.forward(0.6)
             mr.backward(0.5)
         sstop()
         refresh()
