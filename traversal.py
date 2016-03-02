@@ -7,8 +7,10 @@
 
 # take input of the start and the end point
 
-from bot_movement import *
+from bot_globals import bot
+import bot_movement as bm
 from time import sleep
+from callibration import callibrate
 #from click_picture import click_picture
 
 """
@@ -36,26 +38,26 @@ This program gives the best path to move from source to destination.
 
 mapp=[[]]
 
-def look(x, y):
+def look(cx, cy):
 	global mapp
         rows = len(mapp)
         columns = len(mapp[0])
-	if (not((x < rows and x >= 0) and (y < columns and y >= 0))):
+	if (not((cx < rows and cx >= 0) and (cy < columns and cy >= 0))):
 		return False
-	if (mapp[x][y]==5):
+	if (mapp[cx][cy]==5):
 		return True
-	if (mapp[x][y]!=0):
+	if (mapp[cx][cy]!=0):
 		return False
-	mapp[x][y] = 3
-	if (look(x-1,y) == True):
+	mapp[cx][cy] = 3
+	if (look(cx-1,cy) == True):
 		return True
-	if (look(x,y+1) == True):
+	if (look(cx,cy+1) == True):
 		return True
-	if (look(x+1,y) == True):
+	if (look(cx+1,cy) == True):
 		return True
-	if (look(x,y-1) == True):
+	if (look(cx,cy-1) == True):
 		return True
-	mapp[x][y] = 0
+	mapp[cx][cy] = 0
 	return False
 
 """
@@ -63,70 +65,75 @@ Now I can create a matrix which has a path path of 3's
 which i can follow to get my bot to the final location
 """
 
-def find_path(x, y):
+def find_path(cx, cy):
 	global mapp
-	global x
-	global y
 	print mapp
 	rows = len(mapp)
         columns = len(mapp[0])
-	mapp[x][y] = 0
-	while (mapp[x][y] != 5):
-		if x-1 >= 0:
-			if (mapp[x-1][y] == 3 or mapp[x-1][y] == 5):
-				if up() == True:
-                                        x -= 1
-                                        if mapp[x][y] == 5:
-                                            mapp[x][y] = 0
+	if mapp[cx][cy] == 5:
+		return True
+	else:
+		mapp[cx][cy] = 0
+	while True:
+		if cx-1 >= 0:
+			if (mapp[cx-1][cy] == 3 or mapp[cx-1][cy] == 5):
+				if bm.up() == True:
+                                        cx -= 1
+                                        callibrate(rows, columns, cx, cy, mapp)
+                                        if mapp[cx][cy] == 5:
+                                            mapp[cx][cy] = 0
                                             print "up"
                                             break
                                         else:
-                                            mapp[x][y] = 0
+                                            mapp[cx][cy] = 0
                                             print "up"
                                             continue
                                 else:
                                         return False
                                 
-		if x+1 < rows:
-			if (mapp[x+1][y] == 3 or mapp[x+1][y] == 5):
-				if down() == True:
-                                        x += 1
-                                        if mapp[x][y] == 5:
-                                            mapp[x][y] = 0
+		if cx+1 < rows:
+			if (mapp[cx+1][cy] == 3 or mapp[cx+1][cy] == 5):
+				if bm.down() == True:
+                                        cx += 1
+                                        callibrate(rows, columns, cx, cy, mapp)
+                                        if mapp[cx][cy] == 5:
+                                            mapp[cx][cy] = 0
                                             print "down"
                                             break
                                         else:
-                                            mapp[x][y] = 0
+                                            mapp[cx][cy] = 0
                                             print "down"
                                             continue
                                 else:
                                         return False
                                 
-		if y+1 < columns:
-			if (mapp[x][y+1] == 3 or mapp[x][y+1] == 5):
-				if right() == True:
-                                        y += 1
-                                        if mapp[x][y] == 5:
-                                            mapp[x][y] = 0
+		if cy+1 < columns:
+			if (mapp[cx][cy+1] == 3 or mapp[cx][cy+1] == 5):
+				if bm.right() == True:
+                                        cy += 1
+                                        callibrate(rows, columns, cx, cy, mapp)
+                                        if mapp[cx][cy] == 5:
+                                            mapp[cx][cy] = 0
                                             print "right"
                                             break
                                         else:
-                                            mapp[x][y] = 0
+                                            mapp[cx][cy] = 0
                                             print "right"
                                             continue
                                 else:
                                         return False
                                 
-		if y-1 >=0:
-			if (mapp[x][y-1] == 3 or mapp[x][y-1] == 5):
-				if left() == True:
-                                        y -= 1
-                                        if mapp[x][y] == 5:
-                                            mapp[x][y] = 0
+		if cy-1 >=0:
+			if (mapp[cx][cy-1] == 3 or mapp[cx][cy-1] == 5):
+				if bm.left() == True:
+                                        cy -= 1
+                                        callibrate(rows, columns, cx, cy, mapp)
+                                        if mapp[cx][cy] == 5:
+                                            mapp[cx][cy] = 0
                                             print "left"
                                             break
                                         else:
-                                            mapp[x][y] = 0
+                                            mapp[cx][cy] = 0
                                             print "left"
                                             continue
                                 else:
@@ -140,7 +147,7 @@ using the matrix with 3's
 I found where there was 3 and accordingly
 I moved the bot to the location needed
 """
-
+"""
 def go_to_origin(x,y):
         global mapp
         global x
@@ -151,7 +158,7 @@ def go_to_origin(x,y):
         x = 0
         y = 0
         mapp[i][j] = 0
-
+"""
 """
 Now i need to create a function that can make
 each location i have to go to 5 in turn so that
@@ -159,25 +166,21 @@ i can go and take pictures of each obstacle
 """
 
 # x and y being the current position of the bot
-def mapping(inx, iny, maps):
+def mapping(maps):
 	global mapp
-	
 	mapp = maps
 	rows = len(mapp)
         columns = len(mapp[0])
 	for i in range(rows):
 		for j in range(columns):
 			if (mapp[i][j] != 1):
-                                global mapp
-                                global x
-                                global y
                                 mapp[i][j] = 5;
-                                look(x,y)
-                                if find_path(x,y) == False:
+                                look(bot.x,bot.y)
+                                if find_path(bot.x,bot.y) == False:
                                         return False
-                                x = i
-                                y = j
+                                bot.x = i
+                                bot.y = j
                                 mapp[i][j] = 0
                                 #sleep(2)
-        go_to_origin(x,y)
+        #go_to_origin(x,y)
         return True

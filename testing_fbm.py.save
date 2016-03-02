@@ -1,0 +1,2 @@
+from bot_movement import first_up
+import time as 

@@ -1,12 +1,13 @@
 from gpiozero import Motor
 #from gpiozero.Pin import
 #import RPi.GPIO as GPIO
-from encoders import d_move, refresh
+import encoders
 from ultrasonic import ultra
-from anomaly import check
+import anomaly
+from bot_globals import bot
 
-mr = Motor(2, 3)
-ml = Motor(14, 15)
+mr = Motor(3, 2)
+ml = Motor(15, 14)
 ml.stop()
 mr.stop()
 """
@@ -16,158 +17,198 @@ the bot can make only 90 degree turns
 """
 
 lm = 20
-rm = 14.6
-
-direction = 'n' # n,e,w,s for different locations that it is facing
+rm = 90
 
 try:
     def forward():
         ml.forward(0.553)
         mr.forward(0.5)
 
+    def backward():
+        ml.backward(0.553)
+        mr.backward(0.5)
+        
     def sstop():
         ml.stop()
         mr.stop()
 
-    def turn_left():
-        while d_move()[0] < rm and d_move()[1] < rm:
+    def move_forward(distance):
+        while encoders.d_move()[0] <= distance and encoders.d_move()[1] <= distance:
+            forward()
+        sstop()
+        encoders.refresh()
+
+    def move_backward(distance):
+        while encoders.d_move()[0] <= distance and encoders.d_move()[1] <= distance:
+            backward()
+        sstop()
+        encoders.refresh()
+
+    def turn_left(degrees):
+        distance = degrees * 0.1876
+        while encoders.d_move()[0] < distance and encoders.d_move()[1] < distance:
             ml.backward(0.555)
             mr.forward(0.5)
         sstop()
-        refresh()
+        encoders.refresh()
 
-    def turn_right():
-        while d_move()[0] < rm and d_move()[1] < rm:
-            ml.forward(0.555)
+    def turn_right(degrees):
+        distance = (degrees+1) * 0.1876
+        while encoders.d_move()[0] < distance and encoders.d_move()[1] < distance:
+            ml.forward(0.6)
             mr.backward(0.5)
         sstop()
-        refresh()
+        encoders.refresh()
         
     def soft_right():
-        while d_move()[0] < 15:
+        while encoders.d_move()[0] < 15:
             ml.forward(0.555)
             mr.stop()
         sstop()
-        refresh()
+        encoders.refresh()
 
     def soft_left():
-        while d_move()[0] < 15:
+        while encoders.d_move()[0] < 15:
             ml.stop()
             mr.forward(0.5)
         sstop()
-        refresh()
+        encoders.refresh()
+
+    def first_up():
+        look_up()
+        while encoders.d_move()[0] <= lm and encoders.d_move()[1] <= lm:
+            forward()
+        sstop()
+        encoders.refresh()
+
+    def first_left():
+        look_left()
+        while encoders.d_move()[0] <= lm and encoders.d_move()[1] <= lm:
+            forward()
+        sstop()
+        encoders.refresh()
+
+    def first_right():
+        look_right()
+        while encoders.d_move()[0] <= lm and encoders.d_move()[1] <= lm:
+            forward()
+        sstop()
+        encoders.refresh()
+
+    def first_down():
+        look_down()
+        while encoders.d_move()[0] <= lm and encoders.d_move()[1] <= lm:
+            forward()
+        sstop()
+        encoders.refresh()
 
     def up():
         look_up()
-        if check() == True:
-	        while d_move()[0] <= lm and d_move()[1] <= lm:
-	            forward()
-        	sstop()
-        	refresh()
-        	return True
+        if anomaly.check() == True:
+            while encoders.d_move()[0] <= lm and encoders.d_move()[1] <= lm:
+                forward()
+            sstop()
+            encoders.refresh()
+            return True
         else:
-        	return False
+            return False
 
     def left():
         look_left()
-        if check() == True:
-	        while d_move()[0] <= lm and d_move()[1] <= lm:
-	            forward()
-	        sstop()
-	        refresh()
-	        return True
-	    else:
-	    	return False
+        if anomaly.check() == True:
+            while encoders.d_move()[0] <= lm and encoders.d_move()[1] <= lm:
+                forward()
+            sstop()
+            encoders.refresh()
+            return True
+        else:
+            return False
 
     def right():
         look_right()
-        if check() == True
-	        while d_move()[0] <= lm and d_move()[1] <= lm:
-	            forward()
-	        sstop()
-	        refresh()
-	        return True
-	    else:
-	    	return False
+        if anomaly.check() == True:
+            while encoders.d_move()[0] <= lm and encoders.d_move()[1] <= lm:
+                forward()
+            sstop()
+            encoders.refresh()
+            return True
+        else:
+            return False
 
     def down():
         look_down()
-        if check() == True:
-	        while d_move()[0] <= lm and d_move()[1] <= lm:
-	            forward()
-	        sstop()
-	        refresh()
-	        return True
-	    else:
-	    	return False
+        if anomaly.check() == True:
+            while encoders.d_move()[0] <= lm and encoders.d_move()[1] <= lm:
+                forward()
+            sstop()
+            encoders.refresh()
+            return True
+        else:
+            return False
 
     def look_up():
-        global direction
-        if (direction == 'n'):
+        if (bot.direction == 'n'):
             pass
-        elif (direction == 'e'):
-            turn_left()
+        elif (bot.direction == 'e'):
+            turn_left(rm)
             #soft_left()
-        elif (direction == 'w'):
-            turn_right()
+        elif (bot.direction == 'w'):
+            turn_right(rm)
             #soft_right()
-        elif (direction == 's'):
-            turn_left()
-	    turn_left()
+        elif (bot.direction == 's'):
+            turn_left(rm)
+	    turn_left(rm)
             #soft_left()
             #soft_left()
-        direction = 'n'
+        bot.direction = 'n'
 
     def look_down():
-        global direction
-        if (direction == 'n'):
-            turn_left()
-            turn_left()
+        if (bot.direction == 'n'):
+            turn_left(rm)
+            turn_left(rm)
             #soft_left()
             #soft_left()
-        elif (direction == 'e'):
-            turn_right()
+        elif (bot.direction == 'e'):
+            turn_right(rm)
             #soft_right()
-        elif (direction == 'w'):
-            turn_left()
+        elif (bot.direction == 'w'):
+            turn_left(rm)
             #soft_left()
-        elif (direction == 's'):
+        elif (bot.direction == 's'):
             pass
-        direction = 's'
+        bot.direction = 's'
 
     def look_left():
-        global direction
-        if (direction == 'n'):
-            turn_left()
+        if (bot.direction == 'n'):
+            turn_left(rm)
             #soft_left()
-        elif (direction == 'e'):
-            turn_left()
-            turn_left()
+        elif (bot.direction == 'e'):
+            turn_left(rm)
+            turn_left(rm)
             #soft_left()
             #soft_left()
-        elif (direction == 'w'):
+        elif (bot.direction == 'w'):
             pass
-        elif (direction == 's'):
-            turn_right()
+        elif (bot.direction == 's'):
+            turn_right(rm)
             #soft_right()
-        direction = 'w'
+        bot.direction = 'w'
 
     def look_right():
-        global direction
-        if (direction == 'n'):
-            turn_right()
+        if (bot.direction == 'n'):
+            turn_right(rm)
             #soft_right()
-        elif (direction == 'e'):
+        elif (bot.direction == 'e'):
             pass
-        elif (direction == 'w'):
-            turn_left()
-            turn_left()
+        elif (bot.direction == 'w'):
+            turn_left(rm)
+            turn_left(rm)
             #soft_left()
             #soft_left()
-        elif (direction == 's'):
-            turn_left()
+        elif (bot.direction == 's'):
+            turn_left(rm)
             #soft_left()
-        direction = 'e'
+        bot.direction = 'e'
 except KeyboardInterrupt:
     print "cleaning"
 finally:
