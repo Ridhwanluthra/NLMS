@@ -1,6 +1,6 @@
 from ultrasonic import callibration_ultra
 from time import sleep
-from first_bot_movement import move_forward, move_backward, turn_left, turn_right
+from bot_movement import move_forward, move_backward, turn_left, turn_right
 from bot_globals import bot
 from math import asin, degrees, sqrt, pow
 

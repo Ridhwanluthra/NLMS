@@ -8,7 +8,7 @@
 # take input of the start and the end point
 
 from bot_globals import bot
-from first_bot_movement import *
+from bot_movement import first_up, first_down, first_left, first_right, look_up, look_down, look_left, look_right
 from time import sleep
 import file_handling as file_h
 from callibration import callibrate
