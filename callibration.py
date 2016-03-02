@@ -40,9 +40,9 @@ def angle_callibrate(reading_left, reading_back, distance):
             turn_left(degree)
         elif reading_left < reading_back - angle_error:
             turn_right(degree)"""
-        turn_right()
+        turn_right(90)
         move_forward(distance - average_reading)
-        turn_left()
+        turn_left(90)
             
     elif average_reading > distance + distance_error:
         # can add the below commented if angle correction wanted before
@@ -50,9 +50,9 @@ def angle_callibrate(reading_left, reading_back, distance):
             turn_left(degree)
         elif reading_left < reading_back - angle_error:
             turn_right(degree)"""
-        turn_left()
+        turn_left(90)
         move_forward(average_reading - distance)
-        turn_right()
+        turn_right(90)
 
     #now correcting the angle
     if reading_left > reading_back + angle_error:
