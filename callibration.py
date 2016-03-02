@@ -1,6 +1,6 @@
 from ultrasonic import callibration_ultra
 from time import sleep
-from first_bot_movement import forward, backward, turn_left, turn_right
+from first_bot_movement import move_forward, move_backward, turn_left, turn_right
 from bot_globals import bot
 from math import asin, degrees
 
@@ -11,9 +11,9 @@ def linear_callibrate(reading, distance):
     distance = distance + center
     
     if reading > distance + error:
-        forward(reading - distance)
+        move_forward(reading - distance)
     elif reading < distance - error:
-        backward(distance - reading)
+        move_backward(distance - reading)
     else:
         print "no need for ultrasonic callibration, good work encoders"
 
@@ -40,7 +40,7 @@ def angle_callibrate(reading_left, reading_back, distance):
         elif reading_left < reading_back - angle_error:
             turn_right(degree)"""
         turn_right()
-        forward(distance - average_reading)
+        move_forward(distance - average_reading)
         turn_left()
             
     elif average_reading > distance + error:
@@ -50,7 +50,7 @@ def angle_callibrate(reading_left, reading_back, distance):
         elif reading_left < reading_back - angle_error:
             turn_right(degree)"""
         turn_left()
-        forward(average_reading - distance)
+        move_forward(average_reading - distance)
         turn_right()
 
     #now correcting the angle
@@ -61,7 +61,7 @@ def angle_callibrate(reading_left, reading_back, distance):
         turn_right(degree)
 
 def callibrate(rows, columns, cx, cy, mapp):
-    # [0] = forward, [1] = left, [2] = back
+    # [0] = move_forward, [1] = left, [2] = back
     readings = callibration_ultra()
 
     #for linear callibration

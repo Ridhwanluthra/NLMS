@@ -30,22 +30,15 @@ try:
         ml.stop()
         mr.stop()
 
-    def forward(distance):
+    def move_forward(distance):
         while d_move()[0] <= distance and d_move()[1] <= distance:
             forward()
         sstop()
         refresh()
 
-    def backward(distance):
+    def move_backward(distance):
         while d_move()[0] <= distance and d_move()[1] <= distance:
             backward()
-        sstop()
-        refresh()
-        
-    def turn_left():
-        while d_move()[0] < rm and d_move()[1] < rm:
-            ml.backward(0.555)
-            mr.forward(0.5)
         sstop()
         refresh()
 
@@ -54,13 +47,6 @@ try:
         while d_move()[0] < distance and d_move()[1] < distance:
             ml.backward(0.555)
             mr.forward(0.5)
-        sstop()
-        refresh()
-
-    def turn_right():
-        while d_move()[0] < rm and d_move()[1] < rm:
-            ml.forward(0.555)
-            mr.backward(0.5)
         sstop()
         refresh()
 
@@ -118,29 +104,29 @@ try:
         if (bot.direction == 'n'):
             pass
         elif (bot.direction == 'e'):
-            turn_left()
+            turn_left(rm)
             #soft_left()
         elif (bot.direction == 'w'):
-            turn_right()
+            turn_right(rm)
             #soft_right()
         elif (bot.direction == 's'):
-            turn_left()
-	    turn_left()
+            turn_left(rm)
+	    turn_left(rm)
             #soft_left()
             #soft_left()
         bot.direction = 'n'
 
     def look_down():
         if (bot.direction == 'n'):
-            turn_left()
-            turn_left()
+            turn_left(rm)
+            turn_left(rm)
             #soft_left()
             #soft_left()
         elif (bot.direction == 'e'):
-            turn_right()
+            turn_right(rm)
             #soft_right()
         elif (bot.direction == 'w'):
-            turn_left()
+            turn_left(rm)
             #soft_left()
         elif (bot.direction == 's'):
             pass
@@ -148,33 +134,33 @@ try:
 
     def look_left():
         if (bot.direction == 'n'):
-            turn_left()
+            turn_left(rm)
             #soft_left()
         elif (bot.direction == 'e'):
-            turn_left()
-            turn_left()
+            turn_left(rm)
+            turn_left(rm)
             #soft_left()
             #soft_left()
         elif (bot.direction == 'w'):
             pass
         elif (bot.direction == 's'):
-            turn_right()
+            turn_right(rm)
             #soft_right()
         bot.direction = 'w'
 
     def look_right():
         if (bot.direction == 'n'):
-            turn_right()
+            turn_right(rm)
             #soft_right()
         elif (bot.direction == 'e'):
             pass
         elif (bot.direction == 'w'):
-            turn_left()
-            turn_left()
+            turn_left(rm)
+            turn_left(rm)
             #soft_left()
             #soft_left()
         elif (bot.direction == 's'):
-            turn_left()
+            turn_left(rm)
             #soft_left()
         bot.direction = 'e'
 except KeyboardInterrupt:
