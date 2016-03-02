@@ -60,7 +60,7 @@ def callibration_ultra():
                 gpio.output(trig_left, False)
                 gpio.output(trig_back, False)
 
-                time.sleep(2)
+                time.sleep(1)
 
                 #taking forward distance
                 gpio.output(trig_forward, True)
@@ -75,12 +75,12 @@ def callibration_ultra():
 
                 pulse_duration = pulse_end - pulse_start
                 d_forward = pulse_duration*17150
-                d_forward = round(distance, 2)
+                d_forward = round(d_forward, 2)
                 print "forward done"
                 
                 #taking left distance
                 gpio.output(trig_left, False)
-                sleep(1)
+                time.sleep(1)
                 gpio.output(trig_left, True)
                 time.sleep(0.00001)
                 gpio.output(trig_left, False)
@@ -93,12 +93,12 @@ def callibration_ultra():
 
                 pulse_duration = pulse_end - pulse_start
                 d_left = pulse_duration*17150
-                d_left = round(distance, 2)
+                d_left = round(d_left, 2)
                 print "left done"
 
                 #taking back distance
                 gpio.output(trig_back, False)
-                sleep(1)
+                time.sleep(1)
                 gpio.output(trig_back, True)
                 time.sleep(0.00001)
                 gpio.output(trig_back, False)
@@ -111,7 +111,7 @@ def callibration_ultra():
 
                 pulse_duration = pulse_end - pulse_start
                 d_back = pulse_duration*17150
-                d_back = round(distance, 2)
+                d_back = round(d_back, 2)
                 print "back taken"
                 
                 return [d_forward, d_left, d_back]
