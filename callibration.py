@@ -86,6 +86,7 @@ def callibrate(rows, columns, cx, cy, mapp):
             found_obstacle = False
             for i in range(cx, rows):
                 if mapp[i][cy] == 1:
+                    found_obstacle = True
                     distance = (i - cx - 1) * 25
                     break
             if found_obstacle==False:
@@ -98,6 +99,7 @@ def callibrate(rows, columns, cx, cy, mapp):
             found_obstacle = False
             for i in range(1, cy):
                 if mapp[cx][i] == 1:
+                    found_obstacle = True
                     distance = (cy - i - 1) * 25
                     break
             if found_obstacle==False:
@@ -110,6 +112,7 @@ def callibrate(rows, columns, cx, cy, mapp):
             found_obstacle = False
             for i in range(cy, columns):
                 if mapp[cx][i] == 1:
+                    found_obstacle = True
                     distance = (i - cy - 1) * 25
                     break
             if found_obstacle==False:
@@ -125,6 +128,7 @@ def callibrate(rows, columns, cx, cy, mapp):
             found_obstacle = False
             for i in range(1, cy):
                 if mapp[cx][i] == 1:
+                    found_obstacle = True
                     distance = (cy - i - 1) * 25
                     break
             if found_obstacle==False:
@@ -137,6 +141,7 @@ def callibrate(rows, columns, cx, cy, mapp):
             found_obstacle = False
             for i in range(cy, columns):
                 if mapp[cx][i] == 1:
+                    found_obstacle = True
                     distance = (i - cy - 1) * 25
                     break
             if found_obstacle==False:
@@ -149,6 +154,7 @@ def callibrate(rows, columns, cx, cy, mapp):
             found_obstacle = False
             for i in range(cx, rows):
                 if mapp[i][cy] == 1:
+                    found_obstacle = True
                     distance = (i - cx - 1) * 25
                     break
             if found_obstacle==False:
@@ -161,6 +167,7 @@ def callibrate(rows, columns, cx, cy, mapp):
             found_obstacle = False
             for i in range(1, cx):
                 if mapp[i][cy] == 1:
+                    found_obstacle = True
                     distance = (cx - i - 1) * 25
                     break
             if found_obstacle==False:
