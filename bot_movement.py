@@ -1,9 +1,9 @@
 from gpiozero import Motor
 #from gpiozero.Pin import
 #import RPi.GPIO as GPIO
-from encoders import d_move, refresh
+from encoders
 from ultrasonic import ultra
-from anomaly import check
+from anomaly
 from bot_globals import bot
 
 mr = Motor(3, 2)
@@ -33,115 +33,115 @@ try:
         mr.stop()
 
     def move_forward(distance):
-        while d_move()[0] <= distance and d_move()[1] <= distance:
+        while encoders.d_move()[0] <= distance and encoders.d_move()[1] <= distance:
             forward()
         sstop()
-        refresh()
+        encoders.refresh()
 
     def move_backward(distance):
-        while d_move()[0] <= distance and d_move()[1] <= distance:
+        while encoders.d_move()[0] <= distance and encoders.d_move()[1] <= distance:
             backward()
         sstop()
-        refresh()
+        encoders.refresh()
 
     def turn_left(degrees):
         distance = degrees * 0.1876
-        while d_move()[0] < distance and d_move()[1] < distance:
+        while encoders.d_move()[0] < distance and encoders.d_move()[1] < distance:
             ml.backward(0.555)
             mr.forward(0.5)
         sstop()
-        refresh()
+        encoders.refresh()
 
     def turn_right(degrees):
         distance = (degrees+1) * 0.1876
-        while d_move()[0] < distance and d_move()[1] < distance:
+        while encoders.d_move()[0] < distance and encoders.d_move()[1] < distance:
             ml.forward(0.6)
             mr.backward(0.5)
         sstop()
-        refresh()
+        encoders.refresh()
         
     def soft_right():
-        while d_move()[0] < 15:
+        while encoders.d_move()[0] < 15:
             ml.forward(0.555)
             mr.stop()
         sstop()
-        refresh()
+        encoders.refresh()
 
     def soft_left():
-        while d_move()[0] < 15:
+        while encoders.d_move()[0] < 15:
             ml.stop()
             mr.forward(0.5)
         sstop()
-        refresh()
+        encoders.refresh()
 
     def first_up():
         look_up()
-        while d_move()[0] <= lm and d_move()[1] <= lm:
+        while encoders.d_move()[0] <= lm and encoders.d_move()[1] <= lm:
             forward()
         sstop()
-        refresh()
+        encoders.refresh()
 
     def first_left():
         look_left()
-        while d_move()[0] <= lm and d_move()[1] <= lm:
+        while encoders.d_move()[0] <= lm and encoders.d_move()[1] <= lm:
             forward()
         sstop()
-        refresh()
+        encoders.refresh()
 
     def first_right():
         look_right()
-        while d_move()[0] <= lm and d_move()[1] <= lm:
+        while encoders.d_move()[0] <= lm and encoders.d_move()[1] <= lm:
             forward()
         sstop()
-        refresh()
+        encoders.refresh()
 
     def first_down():
         look_down()
-        while d_move()[0] <= lm and d_move()[1] <= lm:
+        while encoders.d_move()[0] <= lm and encoders.d_move()[1] <= lm:
             forward()
         sstop()
-        refresh()
+        encoders.refresh()
 
     def up():
         look_up()
-        if check() == True:
-            while d_move()[0] <= lm and d_move()[1] <= lm:
+        if anomaly.check() == True:
+            while encoders.d_move()[0] <= lm and encoders.d_move()[1] <= lm:
                 forward()
             sstop()
-            refresh()
+            encoders.refresh()
             return True
         else:
             return False
 
     def left():
         look_left()
-        if check() == True:
-            while d_move()[0] <= lm and d_move()[1] <= lm:
+        if anomaly.check() == True:
+            while encoders.d_move()[0] <= lm and encoders.d_move()[1] <= lm:
                 forward()
             sstop()
-            refresh()
+            encoders.refresh()
             return True
         else:
             return False
 
     def right():
         look_right()
-        if check() == True:
-            while d_move()[0] <= lm and d_move()[1] <= lm:
+        if anomaly.check() == True:
+            while encoders.d_move()[0] <= lm and encoders.d_move()[1] <= lm:
                 forward()
             sstop()
-            refresh()
+            encoders.refresh()
             return True
         else:
             return False
 
     def down():
         look_down()
-        if check() == True:
-            while d_move()[0] <= lm and d_move()[1] <= lm:
+        if anomaly.check() == True:
+            while encoders.d_move()[0] <= lm and encoders.d_move()[1] <= lm:
                 forward()
             sstop()
-            refresh()
+            encoders.refresh()
             return True
         else:
             return False

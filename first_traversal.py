@@ -8,7 +8,7 @@
 # take input of the start and the end point
 
 from bot_globals import bot
-from bot_movement import first_up, first_down, first_left, first_right, look_up, look_down, look_left, look_right
+import bot_movement as bm
 from time import sleep
 import file_handling as file_h
 from callibration import callibrate
@@ -76,7 +76,7 @@ def first_find_path(cx, cy):
 	while True:
 		if cx-1 >= 0:
 			if (mapp[cx-1][cy] == 3 or mapp[cx-1][cy] == 5):
-				up()
+				bm.up()
 				cx -= 1
 				callibrate(rows, columns, cx, cy, mapp)
 				if mapp[cx][cy] == 5:
@@ -89,7 +89,7 @@ def first_find_path(cx, cy):
                                     continue
 		if cx+1 < rows:
 			if (mapp[cx+1][cy] == 3 or mapp[cx+1][cy] == 5):
-				down()
+				bm.down()
 				cx += 1
 				callibrate(rows, columns, cx, cy, mapp)
 				if mapp[cx][cy] == 5:
@@ -102,7 +102,7 @@ def first_find_path(cx, cy):
                                     continue
 		if cy+1 < columns:
 			if (mapp[cx][cy+1] == 3 or mapp[cx][cy+1] == 5):
-				right()
+				bm.right()
 				cy += 1
 				callibrate(rows, columns, cx, cy, mapp)
 				if mapp[cx][cy] == 5:
@@ -115,7 +115,7 @@ def first_find_path(cx, cy):
                                     continue
 		if cy-1 >=0:
 			if (mapp[cx][cy-1] == 3 or mapp[cx][cy-1] == 5):
-				left()
+				bm.left()
 				cy -= 1
 				callibrate(rows, columns, cx, cy, mapp)
 				if mapp[cx][cy] == 5:
@@ -170,7 +170,7 @@ def first_mapping(maps):
 					mapp[i-1][j] = 5;
 					first_look(bot.x, bot.y)
 					first_find_path(bot.x, bot.y)
-					look_down()
+					bm.look_down()
 					sleep(2)
 					bot.x = i-1
 					bot.y = j
@@ -184,7 +184,7 @@ def first_mapping(maps):
 					mapp[i][j+1] = 5;
 					first_look(bot.x,bot.y)
 					first_find_path(bot.x,bot.y)
-					look_left()
+					bm.look_left()
 					sleep(2)
 					bot.x = i
 					bot.y = j+1
@@ -198,7 +198,7 @@ def first_mapping(maps):
 					mapp[i+1][j] = 5;
 					first_look(bot.x,bot.y)
 					first_find_path(bot.x,bot.y)
-					look_up()
+					bm.look_up()
 					sleep(2)
 					bot.x = i+1
 					bot.y = j
@@ -212,7 +212,7 @@ def first_mapping(maps):
 					mapp[i][j-1] = 5;
 					first_look(bot.x,bot.y)
 					first_find_path(bot.x,bot.y)
-					look_right()
+					bm.look_right()
 					sleep(2)
 					bot.x = i
 					bot.y = j-1

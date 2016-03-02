@@ -8,7 +8,7 @@
 # take input of the start and the end point
 
 from bot_globals import bot
-from bot_movement import *
+import bot_movement as bm
 from time import sleep
 from callibration import callibrate
 #from click_picture import click_picture
@@ -74,7 +74,7 @@ def find_path(cx, cy):
 	while (mapp[cx][cy] != 5):
 		if cx-1 >= 0:
 			if (mapp[cx-1][cy] == 3 or mapp[cx-1][cy] == 5):
-				if up() == True:
+				if bm.up() == True:
                                         cx -= 1
                                         callibrate(rows, columns, cx, cy, mapp)
                                         if mapp[cx][cy] == 5:
@@ -90,7 +90,7 @@ def find_path(cx, cy):
                                 
 		if cx+1 < rows:
 			if (mapp[cx+1][cy] == 3 or mapp[cx+1][cy] == 5):
-				if down() == True:
+				if bm.down() == True:
                                         cx += 1
                                         callibrate(rows, columns, cx, cy, mapp)
                                         if mapp[cx][cy] == 5:
@@ -106,7 +106,7 @@ def find_path(cx, cy):
                                 
 		if cy+1 < columns:
 			if (mapp[cx][cy+1] == 3 or mapp[cx][cy+1] == 5):
-				if right() == True:
+				if bm.right() == True:
                                         cy += 1
                                         callibrate(rows, columns, cx, cy, mapp)
                                         if mapp[cx][cy] == 5:
@@ -122,7 +122,7 @@ def find_path(cx, cy):
                                 
 		if cy-1 >=0:
 			if (mapp[cx][cy-1] == 3 or mapp[cx][cy-1] == 5):
-				if left() == True:
+				if bm.left() == True:
                                         cy -= 1
                                         callibrate(rows, columns, cx, cy, mapp)
                                         if mapp[cx][cy] == 5:

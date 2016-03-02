@@ -3,7 +3,7 @@ from ultrasonic import ultra
 import RPi.GPIO as gpio
 from time import sleep
 import file_handling as file_h
-from bot_movement import look_left, look_right, look_up, look_down, forward, backward
+import bot_movement as bm
 from callibration import callibrate
 
 pin1 = 7
@@ -51,7 +51,7 @@ def anomaly_find_path(cx, cy):
 	while True:
 		if cx-1 >= 0:
 			if (mapp[cx-1][cy] == 3 or mapp[cx-1][cy] == 5):
-				up()
+				bm.up()
 				cx -= 1
 				callibrate(rows, columns, cx, cy, mapp)
 				if mapp[cx][cy] == 5:
@@ -64,7 +64,7 @@ def anomaly_find_path(cx, cy):
                                     continue
 		if cx+1 < rows:
 			if (mapp[cx+1][cy] == 3 or mapp[cx+1][cy] == 5):
-				down()
+				bm.down()
 				cx += 1
 				callibrate(rows, columns, cx, cy, mapp)
 				if mapp[cx][cy] == 5:
@@ -77,7 +77,7 @@ def anomaly_find_path(cx, cy):
                                     continue
 		if cy+1 < columns:
 			if (mapp[cx][cy+1] == 3 or mapp[cx][cy+1] == 5):
-				right()
+				bm.right()
 				cy += 1
 				callibrate(rows, columns, cx, cy, mapp)
 				if mapp[cx][cy] == 5:
@@ -90,7 +90,7 @@ def anomaly_find_path(cx, cy):
                                     continue
 		if cy-1 >=0:
 			if (mapp[cx][cy-1] == 3 or mapp[cx][cy-1] == 5):
-				left()
+				bm.left()
 				cy -= 1
 				callibrate(rows, columns, cx, cy, mapp)
 				if mapp[cx][cy] == 5:
@@ -144,25 +144,25 @@ def go_to_location(digit):
                 if mapp[cx-1][cy] == 0:
                         anomaly_look(cx, cy)
                         anomaly_find_path(cx, cy)
-                        look_down()
+                        bm.look_down()
                         
         elif cx+1 < rows:
                 if mapp[cx+1][cy] == 0:
                         anomaly_look(cx, cy)
                         anomaly_find_path(cx, cy)
-                        look_up()
+                        bm.look_up()
                         
         elif cy+1 < columns:
                 if mapp[cx][cy+1] == 0:
                         anomaly_look(cx, cy)
                         anomaly_find_path(cx, cy)
-                        look_left()
+                        bm.look_left()
                         
         elif cy-1 >=0:
                 if mapp[cx][cy-1] == 0:
                         anomaly_look(cx, cy)
                         anomaly_find_path(cx, cy)
-                        look_right()
+                        bm.look_right()
                         
 	else:
                 print "there is no place from where i can place the block"
@@ -180,19 +180,17 @@ def correct_the_location(image_matrix):
                 the_required_distance = 10
                 the_required_distance_picture = 15
                 if distance <= the_required_distance_picture:
-                        backward(the_required_distance_picture - distance)
+                        bm.backward(the_required_distance_picture - distance)
                 else:
-                        forward(distance - the_required_distance_picture)
+                        bm.forward(distance - the_required_distance_picture)
                         
                 digit = click_picture()
                 distance = ultra()
                 
                 if distance <= the_required_distance:
-                        #have to create this function in bot_movement
-                        backward(the_required_distance - distance)
+                        bm.backward(the_required_distance - distance)
                 else:
-                        #have to create this function in bot_movement
-                        forward(distance - the_required_distance)
+                        bm.forward(distance - the_required_distance)
 
 		pick_the_block()
 		go_to_location(digit)
