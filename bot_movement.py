@@ -59,46 +59,46 @@ try:
     def up():
         look_up()
         if check() == True:
-	        while d_move()[0] <= lm and d_move()[1] <= lm:
-	            forward()
-        	sstop()
-        	refresh()
-        	return True
+            while d_move()[0] <= lm and d_move()[1] <= lm:
+                forward()
+            sstop()
+            refresh()
+            return True
         else:
-        	return False
+            return False
 
     def left():
         look_left()
         if check() == True:
-	        while d_move()[0] <= lm and d_move()[1] <= lm:
-	            forward()
-	        sstop()
-	        refresh()
-	        return True
-	    else:
-	    	return False
+            while d_move()[0] <= lm and d_move()[1] <= lm:
+                forward()
+            sstop()
+            refresh()
+            return True
+        else:
+            return False
 
     def right():
         look_right()
         if check() == True
-	        while d_move()[0] <= lm and d_move()[1] <= lm:
-	            forward()
-	        sstop()
-	        refresh()
-	        return True
-	    else:
-	    	return False
+            while d_move()[0] <= lm and d_move()[1] <= lm:
+                forward()
+            sstop()
+            refresh()
+            return True
+        else:
+            return False
 
     def down():
         look_down()
         if check() == True:
-	        while d_move()[0] <= lm and d_move()[1] <= lm:
-	            forward()
-	        sstop()
-	        refresh()
-	        return True
-	    else:
-	    	return False
+            while d_move()[0] <= lm and d_move()[1] <= lm:
+                forward()
+            sstop()
+            refresh()
+            return True
+        else:
+            return False
 
     def look_up():
         if (bot.direction == 'n'):
