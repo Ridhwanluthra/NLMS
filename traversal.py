@@ -10,6 +10,7 @@
 from bot_globals import bot
 from bot_movement import *
 from time import sleep
+from callibration import callibrate
 #from click_picture import click_picture
 
 """

@@ -4,6 +4,7 @@ import RPi.GPIO as gpio
 from time import sleep
 import file_handling as file_h
 from first_bot_movement import look_left, look_right, look_up, look_down, forward, backward
+from callibration import callibrate
 
 pin1 = 7
 pin2 = 8     

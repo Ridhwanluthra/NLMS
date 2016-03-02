@@ -11,6 +11,7 @@ from bot_globals import bot
 from first_bot_movement import *
 from time import sleep
 import file_handling as file_h
+from callibration import callibrate
 #from click_picture import click_picture
 
 """
