@@ -80,7 +80,7 @@ try:
 
     def right():
         look_right()
-        if check() == True
+        if check() == True:
             while d_move()[0] <= lm and d_move()[1] <= lm:
                 forward()
             sstop()

@@ -1,6 +1,6 @@
 from gpiozero import Motor
 #from gpiozero.Pin import
-#import RPi.GPIO as GPIO
+#import RPi.GPIO as gpio
 from encoders import d_move, refresh
 from bot_globals import bot
 
@@ -165,6 +165,7 @@ try:
         bot.direction = 'e'
 except KeyboardInterrupt:
     print "cleaning"
+    #gpio.cleanup()
 finally:
-    #GPIO.cleanup()
+    #gpio.cleanup()
     print"check it"

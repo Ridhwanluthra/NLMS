@@ -38,7 +38,7 @@ from one location to the other in a matrix
 This program gives the best path to move from source to destination.
 """
 
-mapp=[[]]
+mapp = [[]]
 
 def first_look(cx, cy):
 	global mapp
@@ -223,5 +223,3 @@ def first_mapping(maps):
 					mapp[i][j-1] = 0
 				else:
 					print "there is some error in mapping function in file traversal.py"
-        #first_go_to_origin(x,y)
-	#return [x,y]
