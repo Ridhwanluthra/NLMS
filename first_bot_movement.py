@@ -4,8 +4,8 @@ from gpiozero import Motor
 from encoders import d_move, refresh
 from bot_globals import bot
 
-mr = Motor(2, 3)
-ml = Motor(14, 15)
+mr = Motor(3, 2)
+ml = Motor(15, 14)
 ml.stop()
 mr.stop()
 """
