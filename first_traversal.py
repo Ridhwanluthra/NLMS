@@ -1,11 +1,16 @@
-# code for making the bot move in the grid
+"""
+*
+* Project Name: 	House probing robot for the elderly
 
-# ALL BLOCK COMMENTS ANSWER THE QUESTION "WHAT DO I HAVE AT THIS POINT?"
+* Author List: 		Ridhwan Luthra, Utkarsh Mittal
 
-# take input of the matrix of the image
-# store this x,y in a different variable
+* Filename: 		first_traversal.py
 
-# take input of the start and the end point
+* Functions: 		first_look, first_find_path, first_mapping
+
+* Global Variables:	mapp
+*
+"""
 
 from bot_globals import bot
 import bot_movement as bm
@@ -14,33 +19,26 @@ import file_handling as file_h
 from callibration import callibrate
 #from click_picture import click_picture
 
-"""
-I get a matrix which has some 0's and 1's
-I get a start point and an end point
-"""
-
-"""
-I have a way to move in different directions
-I still have to configure these functions
-I am working on it lets see what happens.
-so now it just becomes a problem of changing my control
-from one location to the other in a matrix
-"""
-"""
-/* values represent:
-0=free path
-1=blocked path
-3=valid path
-4=invalid path
-5=goal
-"""
-"""
-This program gives the best path to move from source to destination.
-"""
-
 mapp = [[]]
 
 def first_look(cx, cy):
+        """
+        *
+        * Function Name: 	first_look
+        
+        * Input: 		cx -> current x coordinate, cy -> current y coordinate
+        
+        * Output: 		True, False (used to manage flow of control)
+        
+        * Logic: 		This function when given a matrix of ones and zeros where 0's are possible paths
+        *                       and 1's are obstecles. this function recursively finds a way from my current location to
+        *                       the final location denoted by 5. after this algorithm is used the matrix has a bunch of 3's
+        *                       which the bot can follow and get to the final location. this 3s path is the shortest path
+        
+        * Example Call:		first_look(bot.x, bot.y)
+        *
+        """
+        #Variable Name: mapp -> it is the matrix of the imaginary grid of the arena
 	global mapp
         rows = len(mapp)
         columns = len(mapp[0])
@@ -62,12 +60,22 @@ def first_look(cx, cy):
 	mapp[cx][cy] = 0
 	return False
 
-"""
-Now I can create a matrix which has a path path of 3's
-which i can follow to get my bot to the final location
-"""
-
 def first_find_path(cx, cy):
+        """
+        *
+        * Function Name: 	first_find_path
+        
+        * Input: 		cx -> current x coordinate, cy -> current y coordinate
+        
+        * Output: 		NONE
+        
+        * Logic: 		this function gets the matrix which has a bunch of 3s that this function uses
+                                to move the bot from current location to the final location. this function makes the bot
+                                follow the 3s.
+                                
+        * Example Call:		first_find_path(bot.x, bot.y)
+        *
+        """
 	global mapp
 	print mapp
 	rows = len(mapp)
@@ -78,6 +86,8 @@ def first_find_path(cx, cy):
 			if (mapp[cx-1][cy] == 3 or mapp[cx-1][cy] == 5):
 				bm.up()
 				cx -= 1
+				# callibrate function is used by the bot to self callibrate its location
+				# so that if the encoders go wrong this function will correct it
 				callibrate(rows, columns, cx, cy, mapp)
 				if mapp[cx][cy] == 5:
                                     mapp[cx][cy] = 0
@@ -91,6 +101,8 @@ def first_find_path(cx, cy):
 			if (mapp[cx+1][cy] == 3 or mapp[cx+1][cy] == 5):
 				bm.down()
 				cx += 1
+				# callibrate function is used by the bot to self callibrate its location
+				# so that if the encoders go wrong this function will correct it
 				callibrate(rows, columns, cx, cy, mapp)
 				if mapp[cx][cy] == 5:
                                     mapp[cx][cy] = 0
@@ -104,6 +116,8 @@ def first_find_path(cx, cy):
 			if (mapp[cx][cy+1] == 3 or mapp[cx][cy+1] == 5):
 				bm.right()
 				cy += 1
+				# callibrate function is used by the bot to self callibrate its location
+				# so that if the encoders go wrong this function will correct it
 				callibrate(rows, columns, cx, cy, mapp)
 				if mapp[cx][cy] == 5:
                                     mapp[cx][cy] = 0
@@ -117,6 +131,8 @@ def first_find_path(cx, cy):
 			if (mapp[cx][cy-1] == 3 or mapp[cx][cy-1] == 5):
 				bm.left()
 				cy -= 1
+				# callibrate function is used by the bot to self callibrate its location
+				# so that if the encoders go wrong this function will correct it
 				callibrate(rows, columns, cx, cy, mapp)
 				if mapp[cx][cy] == 5:
                                     mapp[cx][cy] = 0
@@ -126,42 +142,28 @@ def first_find_path(cx, cy):
                                     mapp[cx][cy] = 0
                                     print "left"
                                     continue
-	else:
-		return "you have reached your destination" # put a different kind of result
 
-"""
-I have reached my final destination
-using the matrix with 3's 
-I found where there was 3 and accordingly
-I moved the bot to the location needed
-"""
-"""
-def go_to_origin(x,y):
-        global mapp
-        global x
-        global y
-        mapp[0][0] = 5;
-        look(x,y)
-        find_path(x,y)
-        x = 0
-        y = 0
-        mapp[i][j] = 0
-"""
-"""
-Now i need to create a function that can make
-each location i have to go to 5 in turn so that
-i can go and take pictures of each obstacle
-"""
-
-# x and y being the current position of the bot
 def first_mapping(maps):
-        #ADD A FILE SAVING MECHANISM
+        """
+        *
+        * Function Name: 	first_mapping
+        
+        * Input: 		maps -> the image_matrix generated by image processing of the arena
+        
+        * Output: 		NONE
+        
+        * Logic: 		this function controls the entire motion of the bot using first_look and first_find_path.
+                                it also finds the location near the obstacles from where the picture can be taken
+                                it calls the function to take the picture then process it and return the digit
+                                then it stores that information with the location of the obstacle for use later
+                                
+        * Example Call:		first_mapping(image_matrix)
+        *
+        """
 	global mapp
 	mapp = maps
 	rows = len(mapp)
         columns = len(mapp[0])
-        #first_look(x,y)
-	#first_find_path(x,y)
 	for i in range(rows):
 		for j in range(columns):
 			if (mapp[i][j] == 1):
@@ -170,6 +172,7 @@ def first_mapping(maps):
 					mapp[i-1][j] = 5;
 					first_look(bot.x, bot.y)
 					first_find_path(bot.x, bot.y)
+					#looking in the direction of the block
 					bm.look_down()
 					sleep(2)
 					bot.x = i-1
@@ -184,6 +187,7 @@ def first_mapping(maps):
 					mapp[i][j+1] = 5;
 					first_look(bot.x,bot.y)
 					first_find_path(bot.x,bot.y)
+					#looking in the direction of the block
 					bm.look_left()
 					sleep(2)
 					bot.x = i
@@ -198,6 +202,7 @@ def first_mapping(maps):
 					mapp[i+1][j] = 5;
 					first_look(bot.x,bot.y)
 					first_find_path(bot.x,bot.y)
+					#looking in the direction of the block
 					bm.look_up()
 					sleep(2)
 					bot.x = i+1
@@ -212,6 +217,7 @@ def first_mapping(maps):
 					mapp[i][j-1] = 5;
 					first_look(bot.x,bot.y)
 					first_find_path(bot.x,bot.y)
+					#looking in the direction of the block
 					bm.look_right()
 					sleep(2)
 					bot.x = i

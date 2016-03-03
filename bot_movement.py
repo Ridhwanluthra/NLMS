@@ -1,3 +1,19 @@
+"""
+*
+* Project Name: 	House Probing Robot for The Elderly
+
+* Author List: 		Ridhwan Luthra
+
+* Filename: 		bot_movement.py
+
+* Functions: 		forward, backward, sstop, move_forward, move_backward,
+                        turn_left, turn_right, soft_left, soft_right, first_up,
+                        first_down, first_left, first_right, up, down, left, right,
+                        look_up, look_down, look_left, look_right
+
+* Global Variables:	lm, rm
+*
+"""
 from gpiozero import Motor
 #from gpiozero.Pin import
 #import RPi.GPIO as GPIO
@@ -5,6 +21,7 @@ import encoders
 from ultrasonic import ultra
 import anomaly
 from bot_globals import bot
+from time import sleep
 
 mr = Motor(3, 2)
 ml = Motor(15, 14)
@@ -51,6 +68,7 @@ try:
             mr.forward(0.5)
         sstop()
         encoders.refresh()
+        sleep(1)
 
     def turn_right(degrees):
         distance = (degrees+1) * 0.1876
@@ -59,6 +77,7 @@ try:
             mr.backward(0.5)
         sstop()
         encoders.refresh()
+        sleep(1)
         
     def soft_right():
         while encoders.d_move()[0] < 15:
@@ -66,6 +85,7 @@ try:
             mr.stop()
         sstop()
         encoders.refresh()
+        sleep(1)
 
     def soft_left():
         while encoders.d_move()[0] < 15:
@@ -73,6 +93,7 @@ try:
             mr.forward(0.5)
         sstop()
         encoders.refresh()
+        sleep(1)
 
     def first_up():
         look_up()

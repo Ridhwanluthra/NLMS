@@ -1,3 +1,17 @@
+"""
+*
+* Project Name: 	House Probing Robot for The Elderly
+
+* Author List: 		Ridhwan Luthra
+
+* Filename: 		anomaly.py
+
+* Functions: 		check, anomaly_look, anomaly_find_path, pick_the_block,
+                        drop_the_block, rest, go_to_location, correct_the_location,
+
+* Global Variables:	mapp
+*
+"""
 from  bot_globals import bot
 from ultrasonic import ultra
 import RPi.GPIO as gpio

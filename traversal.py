@@ -1,11 +1,16 @@
-# code for making the bot move in the grid
+"""
+*
+* Project Name: 	House probing robot for the elderly
 
-# ALL BLOCK COMMENTS ANSWER THE QUESTION "WHAT DO I HAVE AT THIS POINT?"
+* Author List: 		Ridhwan Luthra, Utkarsh Mittal
 
-# take input of the matrix of the image
-# store this x,y in a different variable
+* Filename: 		first_traversal.py
 
-# take input of the start and the end point
+* Functions: 		look, find_path, mapping
+
+* Global Variables:	mapp
+*
+"""
 
 from bot_globals import bot
 import bot_movement as bm
@@ -13,32 +18,26 @@ from time import sleep
 from callibration import callibrate
 #from click_picture import click_picture
 
-"""
-I get a matrix which has some 0's and 1's
-I get a start point and an end point
-"""
-"""
-I have a way to move in different directions
-I still have to configure these functions
-I am working on it lets see what happens.
-so now it just becomes a problem of changing my control
-from one location to the other in a matrix
-"""
-"""
-/* values represent:
-0=free path
-1=blocked path
-3=valid path
-4=invalid path
-5=goal
-"""
-"""
-This program gives the best path to move from source to destination.
-"""
-
 mapp=[[]]
 
 def look(cx, cy):
+        """
+        *
+        * Function Name: 	look
+        
+        * Input: 		cx -> current x coordinate, cy -> current y coordinate
+        
+        * Output: 		True, False (used to manage flow of control)
+        
+        * Logic: 		This function when given a matrix of ones and zeros where 0's are possible paths
+        *                       and 1's are obstecles. this function recursively finds a way from my current location to
+        *                       the final location denoted by 5. after this algorithm is used the matrix has a bunch of 3's
+        *                       which the bot can follow and get to the final location. this 3s path is the shortest path
+        
+        * Example Call:		look(bot.x, bot.y)
+        *
+        """
+        #Variable Name: mapp -> it is the matrix of the imaginary grid of the arena
 	global mapp
         rows = len(mapp)
         columns = len(mapp[0])
@@ -60,12 +59,25 @@ def look(cx, cy):
 	mapp[cx][cy] = 0
 	return False
 
-"""
-Now I can create a matrix which has a path path of 3's
-which i can follow to get my bot to the final location
-"""
-
 def find_path(cx, cy):
+        """
+        *
+        * Function Name: 	find_path
+        
+        * Input: 		cx -> current x coordinate, cy -> current y coordinate
+        
+        * Output: 		NONE
+        
+        * Logic: 		this function gets the matrix which has a bunch of 3s that this function uses
+                                to move the bot from current location to the final location. this function makes the bot
+                                follow the 3s.
+                                If there are some blocks that are not where they are supposed it stops the processing
+                                and returns False so that the control is returned and the anomaly can be handled
+                                it checks everytime to see if there is a block out of its position
+                                
+        * Example Call:		find_path(bot.x, bot.y)
+        *
+        """
 	global mapp
 	print mapp
 	rows = len(mapp)
@@ -79,6 +91,8 @@ def find_path(cx, cy):
 			if (mapp[cx-1][cy] == 3 or mapp[cx-1][cy] == 5):
 				if bm.up() == True:
                                         cx -= 1
+                                        # callibrate function is used by the bot to self callibrate its location
+                                        # so that if the encoders go wrong this function will correct it
                                         callibrate(rows, columns, cx, cy, mapp)
                                         if mapp[cx][cy] == 5:
                                             mapp[cx][cy] = 0
@@ -95,6 +109,8 @@ def find_path(cx, cy):
 			if (mapp[cx+1][cy] == 3 or mapp[cx+1][cy] == 5):
 				if bm.down() == True:
                                         cx += 1
+                                        # callibrate function is used by the bot to self callibrate its location
+                                        # so that if the encoders go wrong this function will correct it
                                         callibrate(rows, columns, cx, cy, mapp)
                                         if mapp[cx][cy] == 5:
                                             mapp[cx][cy] = 0
@@ -111,6 +127,8 @@ def find_path(cx, cy):
 			if (mapp[cx][cy+1] == 3 or mapp[cx][cy+1] == 5):
 				if bm.right() == True:
                                         cy += 1
+                                        # callibrate function is used by the bot to self callibrate its location
+                                        # so that if the encoders go wrong this function will correct it
                                         callibrate(rows, columns, cx, cy, mapp)
                                         if mapp[cx][cy] == 5:
                                             mapp[cx][cy] = 0
@@ -127,6 +145,8 @@ def find_path(cx, cy):
 			if (mapp[cx][cy-1] == 3 or mapp[cx][cy-1] == 5):
 				if bm.left() == True:
                                         cy -= 1
+                                        # callibrate function is used by the bot to self callibrate its location
+                                        # so that if the encoders go wrong this function will correct it
                                         callibrate(rows, columns, cx, cy, mapp)
                                         if mapp[cx][cy] == 5:
                                             mapp[cx][cy] = 0
@@ -141,32 +161,20 @@ def find_path(cx, cy):
 	else:
 		return True
 
-"""
-I have reached my final destination
-using the matrix with 3's 
-I found where there was 3 and accordingly
-I moved the bot to the location needed
-"""
-"""
-def go_to_origin(x,y):
-        global mapp
-        global x
-        global y
-        mapp[0][0] = 5;
-        look(x,y)
-        find_path(x,y)
-        x = 0
-        y = 0
-        mapp[i][j] = 0
-"""
-"""
-Now i need to create a function that can make
-each location i have to go to 5 in turn so that
-i can go and take pictures of each obstacle
-"""
-
-# x and y being the current position of the bot
 def mapping(maps):
+        """
+        *
+        * Function Name: 	mapping
+        
+        * Input: 		maps -> the image_matrix generated by image processing of the arena
+        
+        * Output: 		True -> if the movement took place, False -> if no movement took place
+        
+        * Logic: 		this function controls the entire motion of the bot using look and find_path.
+                                
+        * Example Call:		mapping(image_matrix)
+        *
+        """
 	global mapp
 	mapp = maps
 	rows = len(mapp)
@@ -181,6 +189,4 @@ def mapping(maps):
                                 bot.x = i
                                 bot.y = j
                                 mapp[i][j] = 0
-                                #sleep(2)
-        #go_to_origin(x,y)
         return True

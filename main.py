@@ -1,3 +1,16 @@
+"""
+*
+* Project Name: 	House Probing Robot for The Elderly
+
+* Author List: 		Ridhwan Luthra
+
+* Filename: 		main.py
+
+* Functions: 		NONE
+
+* Global Variables:	NONE
+*
+"""
 # RUN THIS SCRIPT AND THE REST WILL RUN THEMSELVES
 
 #from sys import argv

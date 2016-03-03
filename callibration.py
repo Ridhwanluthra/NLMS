@@ -1,3 +1,16 @@
+"""
+*
+* Project Name: 	House Probing Robot for The Elderly
+
+* Author List: 		Ridhwan Luthra
+
+* Filename: 		callibration.py
+
+* Functions: 		linear_callibrate, angle_callibrate, callibrate
+
+* Global Variables:	NONE
+*
+"""
 from ultrasonic import callibration_ultra
 from time import sleep
 import bot_movement as bm

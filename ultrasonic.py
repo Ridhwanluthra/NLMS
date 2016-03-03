@@ -1,3 +1,16 @@
+"""
+*
+* Project Name: 	House Probing Robot for The Elderly
+
+* Author List: 		Ridhwan Luthra
+
+* Filename: 		ultrasonic.py
+
+* Functions: 		ultra, callibration_ultra
+* Global Variables:	NONE
+*
+"""
+
 import RPi.GPIO as gpio
 import time
 
