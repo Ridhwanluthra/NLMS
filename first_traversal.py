@@ -16,7 +16,7 @@ from bot_globals import bot
 import bot_movement as bm
 from time import sleep
 import file_handling as file_h
-from callibration import callibrate
+from callibration import linear_callibrate
 from click_picture import clicked
 import ultrasonic
 
@@ -89,7 +89,7 @@ def first_find_path(cx, cy):
 				cx -= 1
 				# callibrate function is used by the bot to self callibrate its location
 				# so that if the encoders go wrong this function will correct it
-				#callibrate(rows, columns, cx, cy, mapp)
+				linear_callibrate(rows, columns, cx, cy, mapp)
 				if mapp[cx][cy] == 5:
                                     mapp[cx][cy] = 0
 				    print "up"
@@ -104,7 +104,7 @@ def first_find_path(cx, cy):
 				cx += 1
 				# callibrate function is used by the bot to self callibrate its location
 				# so that if the encoders go wrong this function will correct it
-				#callibrate(rows, columns, cx, cy, mapp)
+				linear_callibrate(rows, columns, cx, cy, mapp)
 				if mapp[cx][cy] == 5:
                                     mapp[cx][cy] = 0
 				    print "down"
@@ -119,7 +119,7 @@ def first_find_path(cx, cy):
 				cy += 1
 				# callibrate function is used by the bot to self callibrate its location
 				# so that if the encoders go wrong this function will correct it
-				#callibrate(rows, columns, cx, cy, mapp)
+				linear_callibrate(rows, columns, cx, cy, mapp)
 				if mapp[cx][cy] == 5:
                                     mapp[cx][cy] = 0
 				    print "right"
@@ -134,7 +134,7 @@ def first_find_path(cx, cy):
 				cy -= 1
 				# callibrate function is used by the bot to self callibrate its location
 				# so that if the encoders go wrong this function will correct it
-				#callibrate(rows, columns, cx, cy, mapp)
+				linear_callibrate(rows, columns, cx, cy, mapp)
 				if mapp[cx][cy] == 5:
                                     mapp[cx][cy] = 0
 				    print "left"

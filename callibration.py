@@ -17,6 +17,78 @@ import bot_movement as bm
 from bot_globals import bot
 from math import asin, degrees, sqrt, pow
 
+def linear_callibrate(rows, columns, cx, cy, mapp):
+    print "entered linear"
+    # center is actually extra spacing on the sides
+    center = 4
+    error = 1
+    grid_size = 30
+    
+    if bot.direction == 'n':
+        if cx == 0:
+            distance = 0
+        else:
+            found_obstacle = False
+            for i in range(1, cx):
+                if mapp[i][cy] == 1:
+                    found_obstacle = True
+                    distance = (cx - i - 1) * grid_size
+                    break
+            if found_obstacle==False:
+                distance = cx * grid_size
+        
+    elif bot.direction == 's':
+        if cx == rows:
+            distance = 0
+        else:
+            found_obstacle = False
+            for i in range(cx, rows):
+                if mapp[i][cy] == 1:
+                    found_obstacle = True
+                    distance = (i - cx - 1) * grid_size
+                    break
+            if found_obstacle==False:
+                distance = (rows - cx - 1) * grid_size
+        
+    elif bot.direction == 'w':
+        if cy == 0:
+            distance = 0
+        else:
+            found_obstacle = False
+            for i in range(1, cy):
+                if mapp[cx][i] == 1:
+                    found_obstacle = True
+                    distance = (cy - i - 1) * grid_size
+                    break
+            if found_obstacle==False:
+                distance = cy * grid_size
+
+    elif bot.direction == 'e':
+        if cy == columns:
+            distance = 0
+        else:
+            found_obstacle = False
+            for i in range(cy, columns):
+                if mapp[cx][i] == 1:
+                    found_obstacle = True
+                    distance = (i - cy - 1) * grid_size
+                    break
+            if found_obstacle==False:
+                distance = (columns - cy - 1) * grid_size
+    
+    distance = distance + center
+
+    reading = ultra()
+    
+    if reading > distance + error:
+        bm.move_forward(reading - distance)
+    elif reading < distance - error:
+        bm.move_backward(distance - reading)
+    else:
+        print "no need for ultrasonic callibration, good work encoders"
+    sleep(1)
+
+"""
 def linear_callibrate(reading, distance):
     print "entered linear"
     # center is actually extra spacing on the sides
@@ -32,7 +104,7 @@ def linear_callibrate(reading, distance):
     else:
         print "no need for ultrasonic callibration, good work encoders"
     sleep(1)
-
+"""
 def angle_callibrate(read, distance):
     print "entered angle"
     ultra_diff = 12.7
