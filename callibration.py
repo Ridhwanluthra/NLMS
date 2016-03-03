@@ -113,7 +113,7 @@ def callibrate(rows, columns, cx, cy, mapp):
         read = callibration_ultra()
 
     grid_size = 30
-
+    """
     # for angle callibration
     if bot.direction == 'n':
         if cy == 0:
@@ -168,7 +168,7 @@ def callibrate(rows, columns, cx, cy, mapp):
                 distance = cx * grid_size
 
     angle_callibrate(readings, distance)
-
+    """
     #for linear callibration
     if bot.direction == 'n':
         if cx == 0:
