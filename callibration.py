@@ -82,11 +82,11 @@ def callibrate(rows, columns, cx, cy, mapp):
     readings = callibration_ultra()
     read = readings
     while read[1] >= read[2] + 20:
-        move_backward(2)
+        bm.move_backward(2)
         read = callibration_ultra()
         
     while read[1] <= read[2] - 20:
-        move_forward(2)
+        bm.move_forward(2)
         read = callibration_ultra()
 
     grid_size = 30

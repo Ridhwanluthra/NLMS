@@ -16,7 +16,6 @@ from bot_globals import bot
 import bot_movement as bm
 from time import sleep
 from callibration import callibrate
-#from click_picture import click_picture
 
 mapp=[[]]
 

@@ -19,6 +19,7 @@ from time import sleep
 import file_handling as file_h
 import bot_movement as bm
 from callibration import callibrate
+from click_picture import clicked
 
 pin1 = 7
 pin2 = 8     
@@ -198,7 +199,7 @@ def correct_the_location(image_matrix):
                 else:
                         bm.forward(distance - the_required_distance_picture)
                         
-                digit = click_picture()
+                digit = clicked()
                 distance = ultra()
                 
                 if distance <= the_required_distance:

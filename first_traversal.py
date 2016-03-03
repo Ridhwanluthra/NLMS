@@ -17,7 +17,7 @@ import bot_movement as bm
 from time import sleep
 import file_handling as file_h
 from callibration import callibrate
-#from click_picture import click_picture
+from click_picture import clicked
 
 mapp = [[]]
 
@@ -162,6 +162,7 @@ def first_mapping(maps):
         """
 	global mapp
 	mapp = maps
+	the_required_distance_picture = 15
 	rows = len(mapp)
         columns = len(mapp[0])
 	for i in range(rows):
@@ -177,10 +178,13 @@ def first_mapping(maps):
 					sleep(2)
 					bot.x = i-1
 					bot.y = j
-					"""
-					digit = click_picture(i, j)
+					if distance <= the_required_distance_picture:
+                                                bm.backward(the_required_distance_picture - distance)
+                                        else:
+                                                bm.forward(distance - the_required_distance_picture)
+					digit = clicked(i, j)
 					file_h.write_in_file(digit, i, j)
-					"""
+					
 					mapp[i-1][j] = 0
 				elif (j+1 < columns and mapp[i][j+1] == 0):
                                         global mapp
@@ -192,10 +196,13 @@ def first_mapping(maps):
 					sleep(2)
 					bot.x = i
 					bot.y = j+1
-					"""
-					digit = click_picture(i, j)
+					if distance <= the_required_distance_picture:
+                                                bm.backward(the_required_distance_picture - distance)
+                                        else:
+                                                bm.forward(distance - the_required_distance_picture)
+					digit = clicked(i, j)
 					file_h.write_in_file(digit, i, j)
-					"""
+					
 					mapp[i][j+1] = 0
 				elif (i+1 < rows and mapp[i+1][j] == 0):
                                         global mapp
@@ -207,10 +214,13 @@ def first_mapping(maps):
 					sleep(2)
 					bot.x = i+1
 					bot.y = j
-					"""
-					digit = click_picture(i, j)
+					if distance <= the_required_distance_picture:
+                                                bm.backward(the_required_distance_picture - distance)
+                                        else:
+                                                bm.forward(distance - the_required_distance_picture)
+					digit = clicked(i, j)
 					file_h.write_in_file(digit, i, j)
-					"""
+					
 					mapp[i+1][j] = 0
 				elif (j-1 >= 0 and mapp[i][j-1] == 0):
                                         global mapp
@@ -222,10 +232,13 @@ def first_mapping(maps):
 					sleep(2)
 					bot.x = i
 					bot.y = j-1
-					"""
-					digit = click_picture(i, j)
+					if distance <= the_required_distance_picture:
+                                                bm.backward(the_required_distance_picture - distance)
+                                        else:
+                                                bm.forward(distance - the_required_distance_picture)
+					digit = clicked(i, j)
 					file_h.write_in_file(digit, i, j)
-					"""
+					
 					mapp[i][j-1] = 0
 				else:
 					print "there is some error in mapping function in file traversal.py"
