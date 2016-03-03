@@ -40,18 +40,18 @@ def angle_callibrate(read, distance):
 
     distance = distance + center
 
-    average_reading = (reading_left + reading_back)/2
+    average_reading = (read[1] + read[2])/2
 
-    difference = reading_back - reading_left
+    difference = read[2] - read[1]
     degree = asin(difference / sqrt(pow(ultra_diff, 2)+pow(difference, 2)))
     degree = degrees(degree)
 
     #correcting the distance from left
     if average_reading < distance - distance_error:
         # can add the below commented if angle correction wanted before
-        """if reading_left > reading_back + angle_error:
+        """if read[1] > read[2] + angle_error:
             bm.turn_left(degree)
-        elif reading_left < reading_back - angle_error:
+        elif read[1] < read[2] - angle_error:
             bm.turn_right(degree)"""
         bm.turn_right(90)
         bm.move_forward(distance - average_reading)
@@ -59,21 +59,23 @@ def angle_callibrate(read, distance):
             
     elif average_reading > distance + distance_error:
         # can add the below commented if angle correction wanted before
-        """if reading_left > reading_back + angle_error:
+        """if read[1] > read[2] + angle_error:
             bm.turn_left(degree)
-        elif reading_left < reading_back - angle_error:
+        elif read[1] < read[2] - angle_error:
             bm.turn_right(degree)"""
         bm.turn_left(90)
         bm.move_forward(average_reading - distance)
         bm.turn_right(90)
 
     #now correcting the angle
-    while reading_left > reading_back + angle_error or reading_left < reading_back - angle_error:
-        if reading_left > reading_back + angle_error:
+    while read[1] > read[2] + angle_error or read[1] < read[2] - angle_error:
+        if read[1] > read[2] + angle_error:
             bm.turn_left(degree)
+            read = callibration_ultra()
             
-        elif reading_left < reading_back - angle_error:
+        elif read[1] < read[2] - angle_error:
             bm.turn_right(degree)
+            read = callibration_ultra()
 
 def callibrate(rows, columns, cx, cy, mapp):
     # [0] = move_forward, [1] = left, [2] = back

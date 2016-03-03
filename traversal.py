@@ -103,6 +103,8 @@ def find_path(cx, cy):
                                             print "up"
                                             continue
                                 else:
+                                        bot.x = cx
+                                        bot.y = cy
                                         return False
                                 
 		if cx+1 < rows:
@@ -121,6 +123,8 @@ def find_path(cx, cy):
                                             print "down"
                                             continue
                                 else:
+                                        bot.x = cx
+                                        bot.y = cy
                                         return False
                                 
 		if cy+1 < columns:
@@ -139,6 +143,8 @@ def find_path(cx, cy):
                                             print "right"
                                             continue
                                 else:
+                                        bot.x = cx
+                                        bot.y = cy
                                         return False
                                 
 		if cy-1 >=0:
@@ -157,6 +163,8 @@ def find_path(cx, cy):
                                             print "left"
                                             continue
                                 else:
+                                        bot.x = cx
+                                        bot.y = cy
                                         return False
 	else:
 		return True
