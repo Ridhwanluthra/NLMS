@@ -2,6 +2,7 @@
 import numpy as np
 import cv2
 import picamera
+import svmcode as svm
 
 
 m=8
@@ -61,7 +62,7 @@ def clicked():
                         img=img[y:y+h, x:x+w]
                         break
         lower = np.array([0, 0, 0])
-        upper = np.array([90, 90, 90])
+        upper = np.array([60, 60, 60])
         shapeMask = cv2.inRange(img, lower, upper)
 
         # find all the 'black' shapes in the image
@@ -81,13 +82,10 @@ def clicked():
         outputArrayRows=(s01_/m)
         outputArrayColumns=(s02_/n)
         sre=''
-        f = open(text_dir, 'w')
         for i in range (outputArrayRows):
                 for j in range (outputArrayColumns):
                         if countArray(i*m,j*n)>=k:
                                 sre+='1'
                         else:
                                 sre+='0'
-                f.write(sre+'\n')
-                sre=''
-        f.close()
+	print (svm.digit([sre]))
