@@ -89,6 +89,8 @@ def callibrate(rows, columns, cx, cy, mapp):
         move_forward(2)
         read = callibration_ultra()
 
+    grid_size = 30
+    
     #for linear callibration
     if bot.direction == 'n':
         if cx == 0:
@@ -98,10 +100,10 @@ def callibrate(rows, columns, cx, cy, mapp):
             for i in range(1, cx):
                 if mapp[i][cy] == 1:
                     found_obstacle = True
-                    distance = (cx - i - 1) * 25
+                    distance = (cx - i - 1) * grid_size
                     break
             if found_obstacle==False:
-                distance = cx * 25
+                distance = cx * grid_size
         
     elif bot.direction == 's':
         if cx == rows:
@@ -111,10 +113,10 @@ def callibrate(rows, columns, cx, cy, mapp):
             for i in range(cx, rows):
                 if mapp[i][cy] == 1:
                     found_obstacle = True
-                    distance = (i - cx - 1) * 25
+                    distance = (i - cx - 1) * grid_size
                     break
             if found_obstacle==False:
-                distance = (rows - cx - 1) * 25
+                distance = (rows - cx - 1) * grid_size
         
     elif bot.direction == 'w':
         if cy == 0:
@@ -124,10 +126,10 @@ def callibrate(rows, columns, cx, cy, mapp):
             for i in range(1, cy):
                 if mapp[cx][i] == 1:
                     found_obstacle = True
-                    distance = (cy - i - 1) * 25
+                    distance = (cy - i - 1) * grid_size
                     break
             if found_obstacle==False:
-                distance = cy * 25
+                distance = cy * grid_size
 
     elif bot.direction == 'e':
         if cy == columns:
@@ -137,10 +139,10 @@ def callibrate(rows, columns, cx, cy, mapp):
             for i in range(cy, columns):
                 if mapp[cx][i] == 1:
                     found_obstacle = True
-                    distance = (i - cy - 1) * 25
+                    distance = (i - cy - 1) * grid_size
                     break
             if found_obstacle==False:
-                distance = (columns - cy - 1) * 25
+                distance = (columns - cy - 1) * grid_size
     
     linear_callibrate(readings[0], distance)
 
@@ -153,10 +155,10 @@ def callibrate(rows, columns, cx, cy, mapp):
             for i in range(1, cy):
                 if mapp[cx][i] == 1:
                     found_obstacle = True
-                    distance = (cy - i - 1) * 25
+                    distance = (cy - i - 1) * grid_size
                     break
             if found_obstacle==False:
-                distance = cy * 25
+                distance = cy * grid_size
         
     elif bot.direction == 's':
         if cy == columns:
@@ -166,10 +168,10 @@ def callibrate(rows, columns, cx, cy, mapp):
             for i in range(cy, columns):
                 if mapp[cx][i] == 1:
                     found_obstacle = True
-                    distance = (i - cy - 1) * 25
+                    distance = (i - cy - 1) * grid_size
                     break
             if found_obstacle==False:
-                distance = (columns - cy - 1) * 25
+                distance = (columns - cy - 1) * grid_size
         
     elif bot.direction == 'w':
         if cx == rows:
@@ -179,10 +181,10 @@ def callibrate(rows, columns, cx, cy, mapp):
             for i in range(cx, rows):
                 if mapp[i][cy] == 1:
                     found_obstacle = True
-                    distance = (i - cx - 1) * 25
+                    distance = (i - cx - 1) * grid_size
                     break
             if found_obstacle==False:
-                distance = (rows - cx - 1) * 25
+                distance = (rows - cx - 1) * grid_size
 
     elif bot.direction == 'e':
         if cx == 0:
@@ -192,9 +194,9 @@ def callibrate(rows, columns, cx, cy, mapp):
             for i in range(1, cx):
                 if mapp[i][cy] == 1:
                     found_obstacle = True
-                    distance = (cx - i - 1) * 25
+                    distance = (cx - i - 1) * grid_size
                     break
             if found_obstacle==False:
-                distance = cx * 25
+                distance = cx * grid_size
 
     angle_callibrate(readings, distance)
