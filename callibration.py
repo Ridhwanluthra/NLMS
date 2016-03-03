@@ -68,15 +68,24 @@ def angle_callibrate(reading_left, reading_back, distance):
         bm.turn_right(90)
 
     #now correcting the angle
-    if reading_left > reading_back + angle_error:
-        bm.turn_left(degree)
-        
-    elif reading_left < reading_back - angle_error:
-        bm.turn_right(degree)
+    while reading_left > reading_back + angle_error or reading_left < reading_back - angle_error:
+        if reading_left > reading_back + angle_error:
+            bm.turn_left(degree)
+            
+        elif reading_left < reading_back - angle_error:
+            bm.turn_right(degree)
 
 def callibrate(rows, columns, cx, cy, mapp):
     # [0] = move_forward, [1] = left, [2] = back
     readings = callibration_ultra()
+    read = readings
+    while read[1] >= read[2] + 20:
+        move_backward(2)
+        read = callibration_ultra()
+        
+    while read[1] <= read[2] - 20:
+        move_forward(2)
+        read = callibration_ultra()
 
     #for linear callibration
     if bot.direction == 'n':
