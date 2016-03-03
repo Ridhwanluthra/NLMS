@@ -79,6 +79,8 @@ def linear_callibrate(rows, columns, cx, cy, mapp):
     distance = distance + center
 
     reading = ultra()
+    print "ultra calli: " + str(reading)
+    print "required distance: " + st(reading)
     
     if reading > distance + error:
         bm.move_forward(reading - distance)
