@@ -1,6 +1,38 @@
+"""
+*
+* Project Name: 	House Probing Robot for The Elderly
+
+* Author List: 		Pankaj Baranwal
+
+* Filename: 		edging.py
+
+* Functions: 		countArray, edging
+
+* Global Variables:	m, n, inputArray
+*
+"""
+
 import cv2
 import numpy as np
 
+m=10
+n=10
+inputArray=[]
+
+
+"""
+        *
+        * Function Name:    countArray
+        
+        * Input:        i(row number), j(column number)
+        
+        * Output:       returns counter(the nu,ber of 1s found)
+        
+        * Logic:        This function is provided with with row and col index and it reduces m*n grid into one cell.
+        
+        * Example Call:     count_Array(2, 4)
+        *
+        """
 def countArray(i, j):
 		counter=0
 		for row in range(i, i+m):
@@ -8,6 +40,20 @@ def countArray(i, j):
 				if(inputArray[i][j]==255):
 					counter+=1
 		return counter
+
+"""
+        *
+        * Function Name:    edging
+        
+        * Input:        directory of image
+        
+        * Output:       returns final grid of the arena
+        
+        * Logic:        This function is provided with directory of image, it uses image processing to return matrix of arena
+        
+        * Example Call:     edging('img.jpg')
+        
+        """
 
 def edging(dir):
 	img = cv2.imread(dir, cv2.IMREAD_COLOR)
@@ -20,8 +66,6 @@ def edging(dir):
 			pass
 		oppp.append(opp)
 		pass
-	#Save image to storage with a pseudo-unique name
-	cv2.imwrite('img.png', edges)
 
 	#if the number of cells in inputArray having value 255 are greater than "K",then value is 1 in output
 	#here I am setting k=50

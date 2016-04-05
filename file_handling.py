@@ -1,12 +1,55 @@
+"""
+*
+* Project Name:     House Probing Robot for The Elderly
+
+* Author List:      Pankaj Baranwal
+
+* Filename:         file_handling.py
+
+* Functions:        write_in_file, getcoords, getdigit
+
+* Global Variables: file_name
+*
+"""
+
+
 # In below statements, write 'a' for appending in file; 'w' for just writing in file; 'r' for just reading the file
 
 file_name='coords.txt'
+
+"""
+        *
+        * Function Name:    write_in_file
+        
+        * Input:        digit, x, y coordinates of the object
+        
+        * Output:       None
+        
+        * Logic:        It opens the file and appends the data provided
+                        writes to the file the digit, and its x, y coordinates
+        
+        * Example Call:     write_in_file(8, 0, 2)
+        """
+
 
 def write_in_file(digit, x, y):
     lst=[digit, x, y]
     with open(file_name,'a') as myfile:
         myfile.write(",".join(map(str, lst)))
         myfile.write('\n')
+
+"""
+        *
+        * Function Name:    get_coords
+        
+        * Input:        digit
+        
+        * Output:       Returns coordinate of the obstacle with given digit from database.
+        
+        * Logic:        It opens the file containing the database and compares the digit values and then gives the coordinates
+        
+        * Example Call:     getcoords(8)
+        """
 
 def getcoords(digit):
     digit_as_char=str(digit)
@@ -32,6 +75,22 @@ def getcoords(digit):
                 return [int(x_found), int(y_found)]
     print ("Digit not found")
     return [-1]
+
+
+"""
+        *
+        * Function Name:    getdigit
+        
+        * Input:        x and y coordinate of the obstacle
+        
+        * Output:       Returns digit of the obstacle from database.
+        
+        * Logic:        It opens the file containing the database and compares the coordinates and then gives the digit at that coordinate
+        
+        * Example Call:     getdigit(0, 2)
+        """
+
+
 def getdigit(x, y):
     x_as_str=str(x)
     y_as_str=str(y)

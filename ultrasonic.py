@@ -1,7 +1,33 @@
+"""
+*
+* Project Name: 	House Probing Robot for The Elderly
+
+* Author List: 		Ridhwan Luthra
+
+* Filename: 		ultrasonic.py
+
+* Functions: 		ultra, callibration_ultra
+* Global Variables:	NONE
+*
+"""
+
 import RPi.GPIO as gpio
 import time
 
 print "Distance Measurement In Progress"
+"""
+        *
+        * Function Name:    get_coords
+        
+        * Input:        digit
+        
+        * Output:       Returns coordinate of the obstacle with given digit from database.
+        
+        * Logic:        It opens the file containing the database and compares the digit values and then gives the coordinates
+        
+        * Example Call:     getcoords(8)
+        """
+        
 def ultra():
         try:
                 gpio.setmode(gpio.BCM)
@@ -76,8 +102,10 @@ def callibration_ultra():
                 pulse_duration = pulse_end - pulse_start
                 d_forward = pulse_duration*17150
                 d_forward = round(d_forward, 2)
+		print d_forward
                 print "forward done"
-                
+                """
+		time.sleep(2)
                 #taking left distance
                 gpio.output(trig_left, False)
                 time.sleep(1)
@@ -94,8 +122,9 @@ def callibration_ultra():
                 pulse_duration = pulse_end - pulse_start
                 d_left = pulse_duration*17150
                 d_left = round(d_left, 2)
+		print d_left
                 print "left done"
-
+		time.sleep(2)
                 #taking back distance
                 gpio.output(trig_back, False)
                 time.sleep(1)
@@ -111,10 +140,11 @@ def callibration_ultra():
 
                 pulse_duration = pulse_end - pulse_start
                 d_back = pulse_duration*17150
-                d_back = round(d_back, 2)
+                d_back = round(d_back, 2) - 1
+		print d_back
                 print "back taken"
-                
-                return [d_forward, d_left, d_back]
+                """
+                return [d_forward, 0, 0]
         except KeyboardInterrupt:
                 print "reading was interrupted"
         finally:
